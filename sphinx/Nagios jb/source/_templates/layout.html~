@@ -1,0 +1,24 @@
+
+<!-- saved from url=(0112)http://matplotlib.svn.sourceforge.net/viewvc/matplotlib/trunk/sampledoc_tut/_templates/layout.html?revision=8989 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body>{% extends "!layout.html" %}
+
+
+{% block rootrellink %}
+        <li><a href="http://matplotlib.svn.sourceforge.net/viewvc/matplotlib/trunk/sampledoc_tut/_templates/%7B%7B%20pathto('index')%20%7D%7D">home</a>|&nbsp;</li>
+        <li><a href="http://matplotlib.svn.sourceforge.net/viewvc/matplotlib/trunk/sampledoc_tut/_templates/%7B%7B%20pathto('search')%20%7D%7D">search</a>|&nbsp;</li>
+{% endblock %}
+
+
+{% block relbar1 %}
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<a href="http://matplotlib.svn.sourceforge.net/viewvc/matplotlib/trunk/sampledoc_tut/_templates/%7B%7B%20pathto('index')%20%7D%7D"><img src="./layout_files/{{pathto(" _static="" logo.png",="" 1)="" }}"="" border="0" alt="py4sci"></a>
+</div>
+{{ super() }}
+{% endblock %}
+
+{# put the sidebar before the body #}
+{% block sidebar1 %}{{ sidebar() }}{% endblock %}
+{% block sidebar2 %}{% endblock %}
+
+</body></html>

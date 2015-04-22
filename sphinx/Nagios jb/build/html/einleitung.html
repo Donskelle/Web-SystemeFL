@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Einleitung &mdash; Nagois setup Guide 1.0 Dokumentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="top" title="Nagois setup Guide 1.0 Dokumentation" href="index.html" />
+    <link rel="prev" title="Installieren und Konfigurieren von Nagios" href="index.html" /> 
+  </head>
+  <body>
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<a href="index.html"><img src="_static/logo.png" border="0" alt="sampledoc"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Stichwortverzeichnis"
+             accesskey="I">Index</a></li>
+        <li class="right" >
+          <a href="index.html" title="Installieren und Konfigurieren von Nagios"
+             accesskey="P">zurück</a> |</li>
+        <li><a href="index.html">home</a>|&nbsp;</li>
+        <li><a href="search.html">search</a>|&nbsp;</li>
+ 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Inhalt</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Einleitung</a></li>
+<li><a class="reference internal" href="#zugang">Zugang</a></li>
+<li><a class="reference internal" href="#vorgehensweise">Vorgehensweise</a></li>
+</ul>
+
+  <h4>Vorheriges Thema</h4>
+  <p class="topless"><a href="index.html"
+                        title="vorheriges Kapitel">Installieren und Konfigurieren von Nagios</a></p>
+  <h3>Diese Seite</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/einleitung.txt"
+           rel="nofollow">Quelltext anzeigen</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Schnellsuche</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Los" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Geben Sie Suchbegriffe oder einen Modul-, Klassen- oder Funktionsnamen ein.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="einleitung">
+<h1>Einleitung<a class="headerlink" href="#einleitung" title="Permalink zu dieser Überschrift">¶</a></h1>
+<p>Dieses Dokument soll dem Nutzer zeigen, wie das Nagios Netzwerk-Überwachungssystem installiert und konfiguriert wird</p>
+<p>Quelle für diesen Guide ist:</p>
+<p><a class="reference external" href="http://ubuntuforums.org/showthread.php?t=1986743">http://ubuntuforums.org/showthread.php?t=1986743</a></p>
+</div>
+<div class="section" id="zugang">
+<h1>Zugang<a class="headerlink" href="#zugang" title="Permalink zu dieser Überschrift">¶</a></h1>
+<p>Nagios SSH zugriff:</p>
+<div class="highlight-python"><div class="highlight"><pre>IP: 192.168.30.5
+user: nextragen
+passwort: esan
+</pre></div>
+</div>
+<p>Nagios WebUI:</p>
+<div class="highlight-python"><div class="highlight"><pre>user: nagiosadmin
+passwort: nextragen
+</pre></div>
+</div>
+<p>Das Nagios hat seine eigene Mailadresse bei 1&amp;1:</p>
+<div class="highlight-python"><div class="highlight"><pre>adresse: nagios@nextragen.de
+passwort: Db8bZmzZ6iTxt7DVdUaR
+smtp: smtp.1und1.de
+</pre></div>
+</div>
+</div>
+<div class="section" id="vorgehensweise">
+<h1>Vorgehensweise<a class="headerlink" href="#vorgehensweise" title="Permalink zu dieser Überschrift">¶</a></h1>
+<p>Vorgehensweise bei diesem Test:</p>
+<ol class="arabic">
+<li><p class="first">Aufsetzen von Ubuntu Server</p>
+</li>
+<li><p class="first">Installation und Konfiguration von Basissoftware</p>
+</li>
+<li><p class="first">Installation von Nagios-Abhängigkeiten</p>
+</li>
+<li><p class="first">Kompilieren und installieren von Nagios</p>
+</li>
+<li><p class="first">Installieren von Nagios-Plugin-Abhängigkeiten</p>
+</li>
+<li><p class="first">Installieren der Nagios-Plugins</p>
+</li>
+<li><dl class="first docutils">
+<dt>Konfiguration von Nagios</dt>
+<dd><ul class="first last simple">
+<li>Config-Files</li>
+<li>Templates</li>
+<li>Hosts / Hostgruppen</li>
+<li>Services</li>
+<li>Beispiel-Configs</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first">Konfiguration von Linux-Servern als Client</p>
+</li>
+</ol>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Stichwortverzeichnis"
+             >Index</a></li>
+        <li class="right" >
+          <a href="index.html" title="Installieren und Konfigurieren von Nagios"
+             >zurück</a> |</li>
+        <li><a href="index.html">home</a>|&nbsp;</li>
+        <li><a href="search.html">search</a>|&nbsp;</li>
+ 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Jan Boeckelt.
+      Mit <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2 erstellt.
+    </div>
+  </body>
+</html>
