@@ -1,62 +1,75 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Laravel</title>
+<html lang="de">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{{{$Titel}}}</title>
 
-	<link href="{{ asset('/css/app.css') }}" rel="stylesheet">
+        <!--<link href="{{ asset('/css/app.css') }}" rel="stylesheet">-->
 
-	<!-- Fonts -->
-	<link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
+        <!-- Bootstrap 3.3.2 -->
+        <link href="{{ asset('/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
+        <!-- Font Awesome Icons -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+        <!-- Ionicons -->
+        <link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+        <!-- Theme style -->
+        <link href="{{ asset('/css/AdminLTE.min.css') }}" rel="stylesheet" type="text/css" />
+        <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
+              page. However, you can choose any other skin. Make sure you
+              apply the skin class to the body tag so the changes take effect.
+        -->
+        <link href="{{ asset('/css/skins/skin-red.min.css') }}" rel="stylesheet" type="text/css" />
 
-	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-	<!--[if lt IE 9]>
-		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-	<![endif]-->
-</head>
-<body>
-	<nav class="navbar navbar-default">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-					<span class="sr-only">Toggle Navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="#">Laravel</a>
-			</div>
 
-			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-				<ul class="nav navbar-nav">
-					<li><a href="{{ url('/') }}">Home</a></li>
-				</ul>
-
-				<ul class="nav navbar-nav navbar-right">
-					@if (Auth::guest())
-						<li><a href="{{ url('/auth/login') }}">Login</a></li>
-						<li><a href="{{ url('/auth/register') }}">Register</a></li>
-					@else
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
-							<ul class="dropdown-menu" role="menu">
-								<li><a href="{{ url('/auth/logout') }}">Logout</a></li>
-							</ul>
-						</li>
-					@endif
-				</ul>
-			</div>
-		</div>
-	</nav>
-
-	@yield('content')
-
-	<!-- Scripts -->
-	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
-</body>
+        <script src="{{ asset('/plugins/jQuery/jQuery-2.1.3.min.js') }}"></script>
+        <script src="{{ asset('/bootstrap/js/bootstrap.min.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('/js/app.min.js') }}" type="text/javascript"></script>
+    </head>
+    <body class="skin-red">
+        <div class="wrapper">
+            @yield('header')
+            <!-- Left side column. contains the logo and sidebar -->
+            <aside class="main-sidebar">
+                <!-- sidebar: style can be found in sidebar.less -->
+                <section class="sidebar">
+                    @yield('searchNav')
+                    <!-- Sidebar Menu -->
+                    <ul class="sidebar-menu">
+                        @yield('privateNav') 
+                         @yield('publicNav')       
+                    </ul>
+                    <!-- /.sidebar-menu -->
+                </section>
+                <!-- /.sidebar -->
+            </aside> 
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">     
+                <!-- Main content -->
+                <section class="content">
+                    @yield('content')
+                </section><!-- /.content -->
+            </div>
+            <!-- Main Footer -->
+            <footer class="main-footer">      
+                <div class="pull-right hidden-xs">Jan Urbansky, Fabian Puszies, Mirko Dulfer, Peter Steensen</div>       
+                <strong>WebSysteme SS2015 DokuMummy</strong>
+            </footer>
+        </div>
+    </body>
 </html>
+
+
+<!-- 
+@if (Auth::guest())
+                                                <li><a href="{{ url('/auth/login') }}">Login</a></li>
+                                                <li><a href="{{ url('/auth/register') }}">Register</a></li>
+                                        @else
+                                                <li class="dropdown">
+                                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
+                                                        <ul class="dropdown-menu" role="menu">
+                                                                <li><a href="{{ url('/auth/logout') }}">Logout</a></li>
+                                                        </ul>
+                                                </li>
+                                        @endif -->

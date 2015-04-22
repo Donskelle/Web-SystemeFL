@@ -20,7 +20,7 @@ class HomeController extends Controller {
 	 */
 	public function __construct()
 	{
-		$this->middleware('guest');
+		$this->middleware('auth');
 	}
 
 	/**
@@ -30,20 +30,7 @@ class HomeController extends Controller {
 	 */
 	public function index()
 	{
-		return $this->param("");
-	}
-        
-        /**
-	 * Show the application dashboard to the user.
-	 *
-	 * @return Response
-	 */
-	public function param($parameter)
-	{
-            $view = view('home');
-            $view->Titel = "sipgate";
-            $view->p = $parameter;
-            return $view;
+		return view('home');
 	}
 
 }

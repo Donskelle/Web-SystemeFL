@@ -11,11 +11,17 @@
 |
 */
 
-Route::get('/', 'WelcomeController@index');
+Route::get('/', 'HomeController@index');
+Route::get('/home', 'HomeController@index');
+Route::get('/home/{parameter}', 'HomeController@param');
 
-Route::get('home', 'HomeController@index');
+Route::get('/dokumete', 'DokuController@index');
+Route::get('/dokumete/{access}', 'DokuController@param1');
+Route::get('/dokumete/{access}/{doku}', 'DokuController@param2');
+Route::get('/dokumete/{access}/{group}/{doku}', 'DokuController@param3');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
 ]);
+
