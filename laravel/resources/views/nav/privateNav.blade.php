@@ -25,43 +25,13 @@ if (!isset($DokuAktive))
 @endif  
     <a  href="/dokumete/private"><span>Dokumente</span> <i class="fa fa-angle-left pull-right"></i></a>
     <ul class="treeview-menu">
-        <?php
-        $privateDokus = [];
-        array_push($privateDokus, [
-            "ID" => 1,
-            "Name" => "sipgate",
-            "NameShow" => "SipGate"
-        ]);
-        array_push($privateDokus, [
-            "ID" => 2,
-            "Name" => "mummy",
-            "NameShow" => "Mummy"
-        ]);
-        array_push($privateDokus, [
-            "ID" => 3,
-            "Name" => "laravel",
-            "NameShow" => "Laravel"
-        ]);
-        array_push($privateDokus, [
-            "ID" => 4,
-            "Name" => "typo3",
-            "NameShow" => "Typo3"
-        ]);
-        foreach ($privateDokus as $value) {
-            $Name = $value["Name"];
-            $NameShow = $value["NameShow"];
-            $li = <<<li
-<li><a href="/dokumete/private/$Name">$NameShow</a></li>
-li;
-            $liAktiv = <<<liAktiv
-<li class="active"><a href="/dokumete/private/$Name">$NameShow</a></li>
-liAktiv;
-            if ($Name === $DokuAktive && $DokuAccess === "private")
-                echo $liAktiv;
-            else
-                echo $li;
-        }
-        ?>
+    @foreach ($privateDokus as $value)
+        @if ($value["Name"] === $DokuAktive && $DokuAccess === "private")
+               <li class="active"><a href="/dokumete/private/{{$value["Name"]}}">{{$value["NameShow"]}}</a></li>
+        @else
+               <li><a href="/dokumete/private/{{$value["Name"]}}">{{$value["NameShow"]}}</a></li>
+        @endif
+    @endforeach
     </ul>
 </li>
 @endsection

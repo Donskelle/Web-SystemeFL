@@ -10,35 +10,6 @@ if (!isset($DokuAktive))
 <li class="header">Für mich freigegeben</li>
 
 <?php
-$publicDokus = [];
-array_push($publicDokus, [
-    "ID" => 1,
-    "Name" => "sipgate",
-    "NameShow" => "SipGate",
-    "GroupName" => "entwicklung",
-    "GroupNameShow" => "Entwicklung",
-]);
-array_push($publicDokus, [
-    "ID" => 2,
-    "Name" => "mummy",
-    "NameShow" => "Mummy",
-    "GroupName" => "entwicklung",
-    "GroupNameShow" => "Entwicklung",
-]);
-array_push($publicDokus, [
-    "ID" => 3,
-    "Name" => "web",
-    "NameShow" => "Web",
-    "GroupName" => "entwicklung",
-    "GroupNameShow" => "Entwicklung",
-]);
-array_push($publicDokus, [
-    "ID" => 4,
-    "Name" => "laravel",
-    "NameShow" => "Laravel",
-    "GroupName" => "verwaltung",
-    "GroupNameShow" => "Verwaltung",
-]);
 $lastGroup = "";
 foreach ($publicDokus as $value) {
     $Name = $value["Name"];
