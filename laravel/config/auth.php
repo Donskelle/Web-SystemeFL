@@ -28,7 +28,7 @@ return [
 	|
 	*/
 
-	'model' => 'App\User',
+	'model' => 'App\user',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -58,8 +58,7 @@ return [
 	|
 	*/
 
-	'password' => [
-		'email' => 'emails.password',
+	'password' => [		
 		'table' => 'password_resets',
 		'expire' => 60,
 	],

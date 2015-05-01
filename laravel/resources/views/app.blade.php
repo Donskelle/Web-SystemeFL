@@ -4,7 +4,8 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>{{{$Titel}}}</title>
+       
+
 
         <!--<link href="{{ asset('/css/app.css') }}" rel="stylesheet">-->
 
@@ -15,7 +16,7 @@
         <!-- Ionicons -->
         <link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />
         <!-- Theme style -->
-        <link href="{{ asset('/css/AdminLTE.min.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('/css/AdminLTE.css') }}" rel="stylesheet" type="text/css" />
         <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
               page. However, you can choose any other skin. Make sure you
               apply the skin class to the body tag so the changes take effect.
@@ -35,11 +36,13 @@
             <aside class="main-sidebar">
                 <!-- sidebar: style can be found in sidebar.less -->
                 <section class="sidebar">
+                    
                     @yield('searchNav')
                     <!-- Sidebar Menu -->
                     <ul class="sidebar-menu">
+                        @yield('helpInfo')
                         @yield('privateNav') 
-                         @yield('publicNav')       
+                        @yield('publicNav')       
                     </ul>
                     <!-- /.sidebar-menu -->
                 </section>

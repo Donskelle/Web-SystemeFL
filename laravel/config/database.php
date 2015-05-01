@@ -54,10 +54,10 @@ return [
 
 		'mysql' => [
 			'driver'    => 'mysql',
-			'host'      => env('DB_HOST', 'localhost'),
-			'database'  => env('DB_DATABASE', 'DokuMummy'),
-			'username'  => env('DB_USERNAME', 'pharao'),
-			'password'  => env('DB_PASSWORD', 'admin'),
+			'host'      => 'localhost',
+			'database'  => 'DokuMummy',
+			'username'  => 'pharao',
+			'password'  => 'admin',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
