@@ -6,6 +6,11 @@
 <li class="header">
     Zum Registrien geben sie bitte folgende Daten ein
 </li>
+<li><a><i class="fa fa-circle-o"></i>Benutzer Name</a></li>
+<li><a><i class="fa fa-circle-o"></i>Name</a></li>
+<li><a><i class="fa fa-circle-o"></i>Zusatz Info</a></li>
+<li><a><i class="fa fa-circle-o"></i>Password</a></li>
+<li><a><i class="fa fa-circle-o"></i>Password Bestätigung</a></li>
 @endsection
 @section('content')
 <div class="container-fluid">
@@ -16,7 +21,7 @@
                 <div class="panel-body">
                     @if (count($errors) > 0)
                     <div class="alert alert-danger">
-                        <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                        <strong>Ups!</strong>Es sind einige Angaben nicht korrekt<br><br>
                         <ul>
                             @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
@@ -41,6 +46,12 @@
                                 <input type="text" class="form-control" name="name" value="{{ old('name') }}">
                             </div>
                         </div> 
+                         <div class="form-group">
+                            <label class="col-md-4 control-label">Zusatz Info</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="extra" value="{{ old('extra') }}">
+                            </div>
+                        </div> 
                         
                         <div class="form-group">
                             <label class="col-md-4 control-label">Password</label>
@@ -50,7 +61,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label">Confirm Password</label>
+                            <label class="col-md-4 control-label">Password Bestätigung</label>
                             <div class="col-md-6">
                                 <input type="password" class="form-control" name="password_confirmation">
                             </div>

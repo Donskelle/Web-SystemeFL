@@ -15,6 +15,10 @@ class CreateDokumentsTable extends Migration {
 		Schema::create('dokuments', function(Blueprint $table)
 		{
 			$table->increments('id');
+                       $table->string('dokuname')->unique();                      
+			$table->string('author');
+                        $table->string('group');
+                        $table->string('aktive');                       
 			$table->timestamps();
 		});
 	}
