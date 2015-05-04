@@ -15,7 +15,7 @@
         </div><!-- /. tools -->
     </div><!-- /.box-header -->
     <div style="display: none;" class="box-body pad">      
-        <div id="{{$Part['id']}}"  style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{$Part['mardown']}}</div>
+        <div id="{{$Part['id']}}"  style="width: 100%; height: 400px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{$Part['mardown']}}</div>
         <script>
             ace.edit("{{$Part['id']}}").setOption("wrap", 80);
             ace.edit("{{$Part['id']}}").setHighlightActiveLine(true);
@@ -23,9 +23,10 @@
             ace.edit("{{$Part['id']}}").setShowInvisibles(true);
             ace.edit("{{$Part['id']}}").renderer.setShowGutter(true);
             ace.edit("{{$Part['id']}}").setFadeFoldWidgets(false);
-            ace.edit("{{$Part['id']}}").setShowFoldWidgets(false);
+            ace.edit("{{$Part['id']}}").setShowFoldWidgets(true);
             ace.edit("{{$Part['id']}}").setReadOnly(false);
-            ace.edit("{{$Part['id']}}").getSession().setMode("{{asset('/js/ace/mode/markdown')}}");
+            ace.edit("{{$Part['id']}}").getSession().setMode("ace/mode/markdown");
+            ace.edit("{{$Part['id']}}").setTheme("ace/theme/chrome");
         </script>
     </div>				
 </div>
