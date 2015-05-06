@@ -1,0 +1,6 @@
+log/access-laravel.log
+log/access-Test.log
+log/access-typo3neos.log
+log/error-typo3neos.log
+log/error-laravel.log
+log/error-Test.log
