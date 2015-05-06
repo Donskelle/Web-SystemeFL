@@ -19,6 +19,8 @@ Route::get('/settings/profile', 'ProfileController@index');
 Route::get('/settings/profile/{username}', 'ProfileController@showProfil');
 Route::post('/settings/profile/{username}/save', 'ProfileController@saveProfil');
 Route::any('/settings/profile/{username}/fileupload', 'ProfileController@fileupload');
+
+Route::get('/settings/admin', 'AdminController@index');
   
 Route::get('/dokumete', 'DokuController@index');
 Route::get('/dokumete/{access}', 'DokuController@param1');

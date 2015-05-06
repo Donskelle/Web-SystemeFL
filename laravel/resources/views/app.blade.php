@@ -21,13 +21,15 @@
               page. However, you can choose any other skin. Make sure you
               apply the skin class to the body tag so the changes take effect.
         -->
-        <link href="{{ asset('/css/skins/skin-red.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('/css/skins/_all-skins.css') }}" rel="stylesheet" type="text/css" />
 
 
         <script src="{{ asset('/plugins/jQuery/jQuery-2.1.3.min.js') }}"></script>
         <script src="{{ asset('/bootstrap/js/bootstrap.min.js') }}" type="text/javascript"></script>
         <script src="{{ asset('/js/app.min.js') }}" type="text/javascript"></script>
         <script src="{{ asset('/js/ace/ace.js') }}" type="text/javascript"></script>
+		
+		 <script src="{{ asset('/js/demo.js') }}" type="text/javascript"></script>
     </head>
     <body class="skin-red">
         <div class="wrapper">
