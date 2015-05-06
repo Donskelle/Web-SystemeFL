@@ -1,6 +1,15 @@
-log/access-laravel.log
-log/access-Test.log
-log/access-typo3neos.log
-log/error-typo3neos.log
-log/error-laravel.log
-log/error-Test.log
+
+# wird durch log/ unnötig
+#log/access-laravel.log
+#log/access-Test.log
+#log/access-typo3neos.log
+#log/error-typo3neos.log
+#log/error-laravel.log
+#log/error-Test.log
+log/
+#außerdem sollen alle .log-files nicht versioniert werden
+*.log
+# wenn bestimmte log files commitet werden sollen, muss eine Regel mit dem folgenden Format angelegt werden
+# !path/to/log/mylog.log     das ! negiert die regel
+#wenn alle log files in einem bestimmten ordner commitet werden sollen
+# !!path/to/log/*.log 
