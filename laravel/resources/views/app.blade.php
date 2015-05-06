@@ -21,7 +21,7 @@
               page. However, you can choose any other skin. Make sure you
               apply the skin class to the body tag so the changes take effect.
         -->
-        <link href="{{ asset('/css/skins/skin-red.min.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('/css/skins/skin-red.css') }}" rel="stylesheet" type="text/css" />
 
 
         <script src="{{ asset('/plugins/jQuery/jQuery-2.1.3.min.js') }}"></script>
