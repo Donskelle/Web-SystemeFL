@@ -98,7 +98,7 @@ body {
 .content-wrapper,
 .right-side {
     overflow: auto;
-    max-height: 0%;
+    max-height: 80%;
     background-color: #ecf0f5;
     z-index: 800;
 }

@@ -51,12 +51,12 @@
                             </div>
                         </div>
 
-                        <!--                        <div class="form-group">
-                                                    <label class="col-md-4 control-label">Profil Bild</label>
-                                                    <div class="col-md-6">
-                                                        <input type="text" class="form-control" name="imagePath" value="{{ $userShow->imagePath }}"> 
-                                                    </div>
-                                                </div>-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Profil Bild</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="imagePath" value="{{ $userShow->imagePath }}"> 
+                            </div>
+                        </div>
 
                         @if(\Auth::user()->permission < 2 && \Auth::user()->username !==$userShow->username)
                         <div class="form-group">
@@ -92,18 +92,11 @@
 
 
                 </div>
-                <div class="panel-heading">Profile Bild Einstellungen</div>
+                <div class="panel-heading">Profile Bild hochladen</div>
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" enctype="multipart/form-data" action="{{'/settings/profile/'. $userShow->username.'/fileupload' }}">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}"> 
                         <div class="form-group">
-                            <label class="col-md-4 control-label">Aktuelles Bild</label>
-                            <div class="col-md-6">  
-                                <img src="{{ asset('/img/'.\Auth::user()->imagePath) }}" class="img-circle" alt="User Image" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                             <label class="col-md-4 control-label">Neues Bild</label>
                             <div class="col-md-6 col-md-offset-4">
                                 <input  class="btn btn-primary" type="file" id="file" name="file" accept="image/*">
                             </div>
