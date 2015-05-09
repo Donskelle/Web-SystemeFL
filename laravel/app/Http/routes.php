@@ -15,16 +15,19 @@ Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index');
 Route::get('/home/{parameter}', 'HomeController@param');
 
-Route::get('/settings/profile', 'ProfileController@index');
-Route::get('/settings/profile/{username}', 'ProfileController@showProfil');
-Route::post('/settings/profile/{username}/save', 'ProfileController@saveProfil');
-Route::any('/settings/profile/{username}/fileupload', 'ProfileController@fileupload');
+Route::get('/settings/profile', 'SettingsController@index');
+Route::get('/settings/profile/{username}', 'SettingsController@showProfil');
+Route::post('/settings/profile/{username}/save', 'SettingsController@saveProfil');
+Route::any('/settings/profile/{username}/fileupload', 'SettingsController@fileupload');
 
-Route::get('/settings/admin', 'AdminController@index');
+Route::get('/settings/group/{groupname}', 'SettingsController@showGroup');
+Route::get('/settings/group/{groupname}', 'SettingsController@saveGroup');
+
+Route::get('/settings/admin', 'SettingsController@showAdminSettings');
   
 Route::get('/dokumete', 'DokuController@index');
 Route::get('/dokumete/{access}', 'DokuController@param1');
-Route::get('/dokumete/{access}/{doku}', 'DokuController@param2');
+Route::get('/dokumete/{access}/{dokuOrGroup}', 'DokuController@param2');
 Route::get('/dokumete/{access}/{group}/{doku}', 'DokuController@param3');
 
 Route::controllers([

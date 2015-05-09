@@ -20,18 +20,18 @@ if (!isset($DokuAktive))
 @endif
 @if($DokuAccess==="private")
 <li class="active" class="treeview">
-@else     
+    @else     
 <li class="treeview">
-@endif  
+    @endif  
     <a  href="/dokumete/private"><span>Dokumente</span> <i class="fa fa-angle-left pull-right"></i></a>
     <ul class="treeview-menu">
-    @foreach ($privateDokus as $value)
+        @foreach ($privateDokus as $value)
         @if ($value["Name"] === $DokuAktive && $DokuAccess === "private")
-               <li class="active"><a href="/dokumete/private/{{$value["Name"]}}">{{$value["NameShow"]}}</a></li>
+        <li class="active"><a href="/dokumete/private/{{$value["Name"]}}">{{$value["NameShow"]}}</a></li>
         @else
-               <li><a href="/dokumete/private/{{$value["Name"]}}">{{$value["NameShow"]}}</a></li>
+        <li><a href="/dokumete/private/{{$value["Name"]}}">{{$value["NameShow"]}}</a></li>
         @endif
-    @endforeach
+        @endforeach
     </ul>
 </li>
 @endsection

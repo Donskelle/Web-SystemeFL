@@ -10,7 +10,7 @@ use Illuminate\Contracts\Auth\Registrar;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Http\Request;
 
-class ProfileController extends Controller {
+class SettingsController extends Controller {
 
     /**
      * Create a new controller instance.
@@ -29,10 +29,19 @@ class ProfileController extends Controller {
     public function index() {
         return $this->showProfil("");
     }
+    
+     public function showAdminSettings() {
+        $allUser = \DB::table('users')->get();     
+        $view = view('settings.adminSettings');
+        $view->privateDokus = $this->getPrivateNav();
+        $view->publicDokus = $this->getPublicNav();
+        $view->allUser = $allUser;
+        return $view;
+    }
 
     public function showProfil($username) {
         $user = \DB::table('users')->where('username', $username)->first();
-        $view = view('auth.profileSettings');
+        $view = view('settings.profileSettings');
         $view->privateDokus = $this->getPrivateNav();
         $view->publicDokus = $this->getPublicNav();
         $view->userShow = $user;
@@ -64,8 +73,7 @@ class ProfileController extends Controller {
 //                        ->withErrors([
 //                            'imagePath' => 'Es ist kein Bild vorhanden.',]);
         $update = [];
-        $update["name"] = $data["name"];
-        $update["imagePath"] = $data["imagePath"];
+        $update["name"] = $data["name"];       
         $update["extra"] = $data["extra"];
         if (in_array("permission", $data)) {
             $update["permission"] = $data["permission"];

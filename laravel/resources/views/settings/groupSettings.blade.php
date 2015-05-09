@@ -99,7 +99,7 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label">Aktuelles Bild</label>
                             <div class="col-md-6">  
-                                <img src="{{ asset('/img/'.\Auth::user()->imagePath) }}" class="img-circle" alt="User Image" />
+                                <img src="{{ asset('/img/'.$userShow->imagePath) }}" class="img-circle" alt="User Image" />
                             </div>
                         </div>
                         <div class="form-group">

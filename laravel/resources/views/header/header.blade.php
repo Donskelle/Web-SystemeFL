@@ -48,6 +48,7 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li class="header">Einstellungen</li> 
+                        <li><a href="/settings/admin/"><i class="fa fa-desktop"></i> Admin Einstellungen</a></li>
                         <li><a href="#"><i class="fa fa-desktop"></i> Anzeige</a></li>
                         <li><a href="#"><i class="fa fa-info-circle"></i>  Hilfe</a></li>
                     </ul>
