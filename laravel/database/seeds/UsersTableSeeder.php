@@ -1,12 +1,12 @@
 <?php
-use App\user;
+
+use App\Models\user;
 use Illuminate\Database\Seeder;
 
-class UserTableSeeder extends Seeder {
+class UsersTableSeeder extends Seeder {
 
     public function run() {
         \DB::table('users')->truncate();
-
         $users = [
             [
                 'username' => "admin",
@@ -36,8 +36,6 @@ class UserTableSeeder extends Seeder {
                 'imagePath' => "default2.png"
             ]
         ];
-
-
         foreach ($users as $user) {
             user::create($user);
         }

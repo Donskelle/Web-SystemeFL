@@ -43,14 +43,22 @@ use AuthenticatesAndRegistersUsers;
         ]);
 
         $credentials = $request->only('username', 'password');
-        
+
+        $user = \DB::table('users')->where('username', $credentials['username'])->first();      
+        if ($user->active === "0") {
+            return redirect($this->loginPath())
+                            ->withInput($request->only('username', 'remember'))
+                            ->withErrors([
+                                'username' => 'Der Account ist nicht Aktiv',
+            ]);
+        }
         if ($this->auth->attempt($credentials, $request->has('remember'))) {
             return redirect()->intended($this->redirectPath());
-        }      
+        }
         return redirect($this->loginPath())
                         ->withInput($request->only('username', 'remember'))
                         ->withErrors([
-                            'username' => 'These credentials do not match our records.',
+                            'username' => 'Ihre angaben passen zu keinem bekannten Account',
         ]);
     }
 

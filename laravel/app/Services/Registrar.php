@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\user;
+use App\Models\user;
 use Validator;
 use Illuminate\Contracts\Auth\Registrar as RegistrarContract;
 
@@ -48,6 +48,6 @@ class Registrar implements RegistrarContract {
             default :
                 return "default.png";
         }
-    }   
+    }
 
 }

@@ -31,7 +31,7 @@ class SettingsController extends Controller {
     }
     
      public function showAdminSettings() {
-        $allUser = \DB::table('users')->get();     
+        $allUser = \DB::table('users')->get(); 
         $view = view('settings.adminSettings');
         $view->privateDokus = $this->getPrivateNav();
         $view->publicDokus = $this->getPublicNav();
@@ -50,7 +50,6 @@ class SettingsController extends Controller {
 
     public function saveProfil($username) {
         $data = Input::all();
-
         if ($data["password"] === "" && $data["password_confirmation"] === "") {
             $validator = Validator::make($data, [
                         'name' => 'required|max:255',
@@ -75,10 +74,11 @@ class SettingsController extends Controller {
         $update = [];
         $update["name"] = $data["name"];       
         $update["extra"] = $data["extra"];
-        if (in_array("permission", $data)) {
+        if (array_key_exists("permission", $data)) {
             $update["permission"] = $data["permission"];
-        }
-        if (in_array("active", $data)) {
+        }     
+        if (array_key_exists("active", $data)) {
+            
             $update["active"] = $data["active"];
         }
         if ($data["password"] !== "") {
