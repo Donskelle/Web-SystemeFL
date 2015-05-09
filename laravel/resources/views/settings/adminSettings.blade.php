@@ -38,15 +38,15 @@
                     <td>{{$user->name}}</td>
                     <td>{{$user->extra}}</td>
                     <td>10</td>
-                    @if($user->permission == 0)
+                    @if($user->permission == "0")
                     <td><span class="label label-danger">System Admin</span></td>
-                    @elseif($user->permission == 1)
+                    @elseif($user->permission == "1")
                     <td><span class="label label-success">Admin</span></td>
                     @else
                     <td><span class="label label-info">User</span></td>
                     @endif
 
-                    @if($user->active ==1)
+                    @if($user->active =="1")
                     <td><span class="label label-success">aktiv</span></td>
                     @else
                     <td><span class="label label-danger">nicht aktiv</span></td>

@@ -62,9 +62,14 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label">Berechtigung</label>
                             <div class="col-md-6">                              
-                                <select class="form-control" name="permission" value="{{ $userShow->permission }}">                                   
-                                    <option value="1">User Admin</option>
-                                    <option value="2">User</option>                                   
+                                <select class="form-control" name="permission"> 
+                                    @if($userShow->permission === "1")
+                                    <option selected value=1>User Admin</option>
+                                    <option value=2>User</option> 
+                                    @else
+                                    <option value=1>User Admin</option>
+                                    <option selected value=2>User</option> 
+                                    @endif                                    
                                 </select>
                             </div>
                         </div>
@@ -73,9 +78,14 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label">Aktiver Nutzer</label>
                             <div class="col-md-6">                                   
-                                <select class="form-control" name="active" value="{{ $userShow->active }}">
-                                    <option value="0">Nicht Aktiv</option>
-                                    <option value="1">Aktiv</option>                                                                     
+                                <select class="form-control" name="active">
+                                    @if($userShow->active === "1")
+                                    <option value=0>Nicht Aktiv</option>
+                                    <option selected value=1>Aktiv</option>        
+                                    @else
+                                    <option selected value=0>Nicht Aktiv</option>
+                                    <option value=1>Aktiv</option>       
+                                    @endif      
                                 </select>
                             </div>
                         </div>
@@ -103,7 +113,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                             <label class="col-md-4 control-label">Neues Bild</label>
+                            <label class="col-md-4 control-label">Neues Bild</label>
                             <div class="col-md-6 col-md-offset-4">
                                 <input  class="btn btn-primary" type="file" id="file" name="file" accept="image/*">
                             </div>
