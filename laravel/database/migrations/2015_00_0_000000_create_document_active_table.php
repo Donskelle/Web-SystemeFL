@@ -15,8 +15,8 @@ class CreateDocumentActiveTable extends Migration {
 		Schema::create('document_active', function(Blueprint $table)
 		{
 			$table->increments('id');
-                        $table->integer('documents_id');
-                        $table->integer('users_id');                        
+                        $table->integer('document_id');
+                        $table->integer('user_id');                        
 			$table->integer('part');
                         $table->timestamps();
 		});

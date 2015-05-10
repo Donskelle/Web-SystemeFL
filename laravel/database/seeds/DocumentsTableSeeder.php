@@ -14,17 +14,17 @@ class DocumentsTableSeeder extends Seeder {
                 'user_id' => 1
             ],
             [
-               'name' => "Nagios jb",
+                'name' => "Nagios jb",
                 'path' => "Nagios jb",
                 'user_id' => 2
             ],
             [
-              'name' => "test",
+                'name' => "test",
                 'path' => "test",
                 'user_id' => 2
             ],
             [
-               'name' => "test",
+                'name' => "test",
                 'path' => "test",
                 'user_id' => 2
             ]

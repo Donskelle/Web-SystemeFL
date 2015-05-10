@@ -4,21 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class document extends Model {
+class active_document_part extends Model {
 
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'documents';
+    protected $table = 'document_active';
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['name', 'path', 'user_id'];
+    protected $fillable = ['document_id', 'user_id', 'part'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -28,19 +28,19 @@ class document extends Model {
     protected $hidden = [];
 
     /**
-     * One To One 
+     * Many Or One To One
      * @return type
      */
-    public function group() {
-        return $this->hasOne('App\Models\document_in_group');
+    public function user() {
+        return $this->belongsTo('App\Models\user');
     }
 
     /**
-     * One To Many
+     * Many Or One To One 
      * @return type
      */
-    public function activeDocuments() {
-        return $this->hasMany('App\Models\active_document_part');
+    public function document() {
+        return $this->belongsTo('App\Models\document');
     }
 
 }

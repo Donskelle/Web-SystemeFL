@@ -49,5 +49,13 @@ class user extends Model implements AuthenticatableContract, CanResetPasswordCon
     public function documents() {
         return $this->hasMany('App\Models\document');
     }
+    
+    /**
+     * One To Many
+     * @return type
+     */
+    public function activeDocuments() {
+        return $this->hasMany('App\Models\active_document_part');
+    }
 
 }
