@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUser_In_GroupTable extends Migration {
+class CreateUserInGroupTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -17,6 +17,7 @@ class CreateUser_In_GroupTable extends Migration {
 			$table->increments('id');
 			$table->integer('user_id');
                         $table->integer('group_id');
+                        $table->timestamps();
 		});
 	}
 	/**

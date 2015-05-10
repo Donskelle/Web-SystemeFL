@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDocument_In_GroupTable extends Migration {
+class CreateDocumentInGroupTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -17,6 +17,7 @@ class CreateDocument_In_GroupTable extends Migration {
 			$table->increments('id');
 			$table->integer('document_id');
                         $table->integer('group_id');
+                        $table->timestamps();
 		});
 	}
 	/**

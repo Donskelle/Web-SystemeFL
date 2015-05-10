@@ -29,15 +29,15 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($allUser as $user)  
+                @foreach ($allUsers as $user)  
                 <tr>
-                    <td>  <a class="users-list-name" href="/settings/profile/{{$user->username}}">edit</a></td>
+                    <td>  <a class="users-list-name" href="/settings/profile/{{$user->username}}"><i class="fa fa-pencil"></i></a></td>
                     <td>{{$user->id}}</td>
                     <td>{{$user->username}}</td>
                     <td><img src="  {{ asset('/img/'.$user->imagePath) }}"  class="img-circle" alt="User Image" width="42" height="42"></td>
                     <td>{{$user->name}}</td>
                     <td>{{$user->extra}}</td>
-                    <td>10</td>
+                    <td>{{count($user->documents)}}</td>
                     @if($user->permission == "0")
                     <td><span class="label label-danger">System Admin</span></td>
                     @elseif($user->permission == "1")
@@ -81,15 +81,15 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($allUser as $user)  
+                @foreach ($allGroups as $group)  
                 <tr>
-                    <td>  <a class="users-list-name" href="/settings/group/{{$user->username}}">edit</a></td>
-                    <td>{{$user->id}}</td>
-                   <td>{{$user->name}}</td>
-                    <td>{{$user->extra}}</td>
-                    <td>10</td>   
-                     <td>20</td>   
-                    @if($user->active ==1)
+                    <td><a class="users-list-name" href="/settings/group/{{$group->id}}"><i class="fa fa-pencil"></i></a></td>
+                    <td>{{$group->id}}</td>
+                   <td>{{$group->name}}</td>
+                    <td>{{$group->description}}</td>
+                    <td>{{count($group->users)}}</td>   
+                     <td>{{count($group->documents)}}</td>   
+                    @if($group->active =="1")
                     <td><span class="label label-success">aktiv</span></td>
                     @else
                     <td><span class="label label-danger">nicht aktiv</span></td>

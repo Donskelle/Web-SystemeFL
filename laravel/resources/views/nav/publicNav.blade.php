@@ -8,34 +8,23 @@ if (!isset($DokuAktive))
     $DokuAktive = "";
 ?>
 <li class="header">Für mich freigegeben</li>
-
-<?php $lastGroup = ""; 
-
-?>
-@foreach ($publicDokus as $value)
-@if ($lastGroup !== $value["GroupName"])
-    @if ($lastGroup !== "")
-    </ul>
-    </li>
+@foreach ($publicGroups as $group)
+@if ($DokuAccess === "public" && $DokuGroupAktive === $group->group_id)
+<li class="active" class="treeview">
+    @else
+<li class="treeview">
     @endif
-
-    @if ($DokuAccess === "public" && $DokuGroupAktive === $value["GroupName"])
-    <li class="active" class="treeview">
-        @else
-         <li class="treeview">
-    @endif
-    <a href="/dokumete/public/{{$value["GroupName"]}}"><span>{{$value["GroupNameShow"]}}</span> <i class="fa fa-angle-left pull-right"></i></a>
+    <a href="/dokumete/public/{{$group->group_id}}"><span>{{$group->group->name}}</span> <i class="fa fa-angle-left pull-right"></i></a>
     <ul class="treeview-menu">
- @endif
-<?php $lastGroup = $value["GroupName"]; ?>   
-
-
-@if($value["Name"] === $DokuAktive && $DokuAccess === "public")
-    <li class="active"><a href="/dokumete/public/{{$value["GroupName"]}}/{{$value["Name"]}}">{{$value["NameShow"]}}</a></li>
-@else
-    <li><a href="/dokumete/public/{{$value["GroupName"]}}/{{$value["Name"]}}">{{$value["NameShow"]}}</a></li>
-@endif
-@endforeach
+        @foreach($group->group->documents as $document)
+        @if($document->document_id === $DokuAktive && $DokuAccess === "public")
+        <li class="active"><a href="/dokumete/public/{{$group->group_id}}/{{$document->document_id}}">{{$document->document->name}}</a></li>
+        @else
+        <li><a href="/dokumete/public/{{$group->document_id}}/{{$document->document_id}}">{{$document->document->name}}</a></li>
+        @endif
+        @endforeach   
     </ul>
 </li>
+@endforeach
+
 @endsection

@@ -44,7 +44,7 @@ class DokuController extends Controller {
         $view = $this->getView($access);
         $view->DokuAccess = $access;
         $view->Titel = "sipgate";
-         $view->privateDokus = $this->getPrivateNav();
+         $view->privateDokus = $this->getAuthDocuments();
         $view->publicDokus = $this->getPublicNav();
         return $view;
     }
@@ -61,8 +61,8 @@ class DokuController extends Controller {
         $view->DokuAccess = $access;
         $view->DokuAktive = $doku;
         $view->Dokument = $this->getDokument($doku);
-         $view->privateDokus = $this->getPrivateNav();
-        $view->publicDokus = $this->getPublicNav();
+         $view->privateDokus = $this->getAuthDocuments();
+        $view->publicGroups = $this->getAuthGroups();
         return $view;
     }
 
@@ -74,8 +74,8 @@ class DokuController extends Controller {
         $view->DokuGroupAktive = $group;
         $view->DokuAktive = $doku;
         $view->Dokument = $this->getDokument($doku);
-         $view->privateDokus = $this->getPrivateNav();
-        $view->publicDokus = $this->getPublicNav();
+         $view->privateDokus = $this->getAuthDocuments();
+        $view->publicGroups = $this->getAuthGroups();
         return $view;
     }
 

@@ -18,6 +18,7 @@ class CreateGroupsTable extends Migration {
 			$table->string('name'); 
                         $table->string('description');                                         
                         $table->integer('active');
+                        $table->timestamps();
 		});
 	}
 	/**

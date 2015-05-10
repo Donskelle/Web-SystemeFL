@@ -18,7 +18,7 @@ class document extends Model {
      *
      * @var array
      */
-    protected $fillable = ['name', 'path', 'autor_id'];
+    protected $fillable = ['name', 'path', 'user_id'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -26,5 +26,13 @@ class document extends Model {
      * @var array
      */
     protected $hidden = [];
+    
+     /**
+     * One To One 
+     * @return type
+     */
+    public function group() {
+        return $this->hasOne('App\Models\document_in_group');
+    }
 
 }

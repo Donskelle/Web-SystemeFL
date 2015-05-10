@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDocument_ActiveTable extends Migration {
+class CreateDocumentActiveTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -18,6 +18,7 @@ class CreateDocument_ActiveTable extends Migration {
                         $table->integer('documents_id');
                         $table->integer('users_id');                        
 			$table->integer('part');
+                        $table->timestamps();
 		});
 	}
 	/**

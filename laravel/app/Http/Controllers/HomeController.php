@@ -43,8 +43,8 @@ class HomeController extends Controller {
         $view->p = $parameter;
 
 
-        $view->privateDokus = $this->getPrivateNav();
-        $view->publicDokus = $this->getPublicNav();
+        $view->privateDokus = $this->getAuthDocuments();
+        $view->publicGroups = $this->getAuthGroups();
         return $view;
     }
 

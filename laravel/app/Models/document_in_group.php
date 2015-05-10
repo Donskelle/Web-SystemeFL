@@ -4,21 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class group extends Model {
+class document_in_group extends Model {
 
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'groups';
+    protected $table = 'document_in_group';
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['name', 'description', 'active'];
+    protected $fillable = ['document_id', 'group_id'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -27,18 +27,19 @@ class group extends Model {
      */
     protected $hidden = [];
 
-     /**
-     * One To Many
-     * @return type
-     */
-    public function users() {
-        return $this->hasMany('App\Models\user_in_group');
-    }
     /**
-     * One To Many
+     * Many Or One To One
      * @return type
      */
-    public function documents() {
-        return $this->hasMany('App\Models\document_in_group');
+    public function user() {
+        return $this->belongsTo('App\Models\user');
+    }
+    
+     /**
+     * Many Or One To One 
+     * @return type
+     */
+    public function document() {
+        return $this->belongsTo('App\Models\document');
     }
 }

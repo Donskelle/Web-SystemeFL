@@ -22,7 +22,8 @@ class CreateUsersTable extends Migration {
                         $table->string('extra');                        
                         $table->integer('permission');                        
                         $table->integer('active');
-			$table->rememberToken();			
+			$table->rememberToken();
+                        $table->timestamps();
 		});
 	}
 

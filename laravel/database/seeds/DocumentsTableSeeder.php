@@ -11,22 +11,22 @@ class DocumentsTableSeeder extends Seeder {
             [
                 'name' => "DokuMummy",
                 'path' => "DokuMummy",
-                'autor_id' => 1
+                'user_id' => 1
             ],
             [
                'name' => "Nagios jb",
                 'path' => "Nagios jb",
-                'autor_id' => 2
+                'user_id' => 2
             ],
             [
               'name' => "test",
                 'path' => "test",
-                'autor_id' => 2
+                'user_id' => 2
             ],
             [
                'name' => "test",
                 'path' => "test",
-                'autor_id' => 2
+                'user_id' => 2
             ]
         ];
         foreach ($documents as $document) {
