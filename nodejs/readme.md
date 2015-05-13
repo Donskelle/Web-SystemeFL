@@ -3,11 +3,11 @@ https://docs.google.com/document/d/1Kk3G_65t8uPrlB1iwsjzeqZFfitk-q5B1ViLnsRthog/
 
 
 ### script.js:
-Wichtig hier wird die URL des Servers angegeben zum Verbinden. Diese bitte entsprechend:
+**Wichtig:** Hier wird die URL des Servers zum Verbinden angegeben. Diese bitte entsprechend:
 
     ifconfig
 
-anpassen. Dieses Script wird dem Client ausgelieftert und stellt Verbindung zum Server her. Außerdem werden hier die Socket Events angelegt.
+anpassen. Dieses Script wird dem Client ausgeliefert und stellt Verbindung zum Server her. Außerdem werden hier die Socket Events angelegt.
 
 ### server.js:
 Diese Datei muss auf dem Server ausgeführt werden mit: 
