@@ -9,6 +9,7 @@
 log/
 #außerdem sollen alle .log-files nicht versioniert werden
 *.log
+sftp-config.json
 # wenn bestimmte log files commitet werden sollen, muss eine Regel mit dem folgenden Format angelegt werden
 # !path/to/log/mylog.log     das ! negiert die regel
 #wenn alle log files in einem bestimmten ordner commitet werden sollen
