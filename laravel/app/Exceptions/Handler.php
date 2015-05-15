@@ -24,6 +24,12 @@ class Handler extends ExceptionHandler {
 	 */
 	public function report(Exception $e)
 	{
+             if ($e instanceof CustomException)
+    {
+           $view = view('errors.503');      
+        return $view;
+    }
+
 		return parent::report($e);
 	}
 

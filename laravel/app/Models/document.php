@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models;
-
+use App\Models\user;
 use Illuminate\Database\Eloquent\Model;
 
 class document extends Model {
@@ -18,7 +18,7 @@ class document extends Model {
      *
      * @var array
      */
-    protected $fillable = ['name', 'path', 'user_id'];
+    protected $fillable = ['name', 'path','layout', 'user_id'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -33,6 +33,14 @@ class document extends Model {
      */
     public function group() {
         return $this->hasOne('App\Models\document_in_group');
+    }
+    
+    /**
+     * Many Or One To One
+     * @return type
+     */
+    public function user() {
+         return $this->belongsTo('App\Models\user');       
     }
 
     /**

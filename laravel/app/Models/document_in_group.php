@@ -31,8 +31,8 @@ class document_in_group extends Model {
      * Many Or One To One
      * @return type
      */
-    public function user() {
-        return $this->belongsTo('App\Models\user');
+    public function group() {
+        return $this->belongsTo('App\Models\group');
     }
     
      /**

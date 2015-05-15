@@ -35,4 +35,5 @@ abstract class Controller extends BaseController {
         return \App\Models\document::all();
     }
 
+    
 }

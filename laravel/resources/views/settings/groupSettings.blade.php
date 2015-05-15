@@ -5,119 +5,117 @@
 @extends('nav.publicNav')
 
 @section('content')
+<link href="{{ asset('/css/Radiobutton.css') }}" rel="stylesheet" type="text/css" />
+
 <div class="container-fluid">
     <div class="row">
+
         <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Profile Einstellungen</div>
-                <div class="panel-body">
-                    @if (count($errors) > 0)
-                    <div class="alert alert-danger">
-                        <strong>Ups!</strong>Es sind einige Angaben nicht korrekt<br><br>
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
+            <form class="form-horizontal" role="form" method="POST" action="{{'/settings/group/'.$group->id.'/save' }}">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <div class="panel panel-default">                
+                    <div class="panel-heading">Verwalten der Benutzer in der Gruppe {{$group->name}}</div>
+                    <div class="panel-body">    
+
+                        <div class="form-group">
+                            <label class="col-md-6 control-label">Benutzer (Zusatzinfo)</label>  
+                            <label class="col-md-2 control-label">Zugewiesen</label> 
+                        </div> 
+                        @foreach ($allUsers as $user)
+                        <div class="form-group">
+                            <label class="col-md-6 control-label">{{$user->name}} </br>({{$user->extra}})</label>
+                            <div class="col-md-4">
+                                <input type="hidden" name="userID-{{$user->id}}" value="{{$user->id}}">
+                                <div class="iphone-toggle-buttons">                                
+                                    <?php $userIn = false; ?>
+                                    @if(is_object($user->groups)) 
+                                    @foreach ($user->groups as $singleGroup)
+                                    @if($singleGroup->group_id ===$group->id)
+                                    <?php $userIn = true; ?>
+                                    @endif                             
+                                    @endforeach 
+                                    @endif
+
+                                    @if($userIn)
+                                    <label for="usercheckbox-{{$user->id}}"><input type="checkbox" name="usercheckbox-{{$user->id}}" id="usercheckbox-{{$user->id}}" checked="checked"/><span></span></label>
+                                    @else
+                                    <label for="usercheckbox-{{$user->id}}"><input type="checkbox" name="usercheckbox-{{$user->id}}" id="usercheckbox-{{$user->id}}"/><span></span></label>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
                     </div>
-                    @endif
-                    <form class="form-horizontal" role="form" method="POST" action="{{'/settings/profile/'. $userShow->username.'/save' }}">
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}"> 
+                    <div class="panel-heading">Verwalten der Dokumente in der Gruppe {{$group->name}}</div>
+                    <div class="panel-body">
+                        @foreach ($allDocuments as $document)                     
+                        <div class="form-group">
+                            <label class="col-md-6 control-label">{{$document->name}}</label>
+                            <div class="col-md-4">
+                                <input type="hidden" name="documentID-{{$document->id}}" value="{{$document->id}}">
+                                <div class="iphone-toggle-buttons">                              
+                                    @if(is_object($document->group))     
+                                    @if($document->group->group_id == $group->id)
+                                    <label for="documentcheckbox-{{$document->id}}"><input type="checkbox" name="documentcheckbox-{{$document->id}}" id="documentcheckbox-{{$document->id}}" checked="checked"/><span></span></label>
+                                    @else
+                                    <label for="documentcheckbox-{{$document->id}}"><input type="checkbox" name="documentcheckbox-{{$document->id}}" id="documentcheckbox-{{$document->id}}"/><span></span></label>
+                                    @endif
+                                    @else
+                                    <label for="documentcheckbox-{{$document->id}}"><input type="checkbox" name="documentcheckbox-{{$document->id}}" id="documentcheckbox-{{$document->id}}"/><span></span></label>
+                                    @endif
+                                </div>
+                            </div> 
+                        </div>
+                        @endforeach 
+                    </div>
+                    <div class="panel panel-default">                
+                        <div class="panel-heading">Verwalten der Extras in der Gruppe {{$group->name}}</div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Name</label>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" name="name" value="{{ $group->name }}">
+                                </div>
+                            </div> 
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Beschreibung</label>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" name="description" value="{{ $group->description }}">
+                                </div>
+                            </div> 
 
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Name</label>
-                            <div class="col-md-6">
-                                <input type="text" class="form-control" name="name" value="{{ $userShow->name }}">
+                            @if(\Auth::user()->permission <1)
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Aktive Gruppe</label>
+                                <div class="col-md-6">                                   
+                                    <select class="form-control" name="active">
+                                        @if($group->active === "1")
+                                        <option value=0>Nicht Aktiv</option>
+                                        <option selected value=1>Aktiv</option>        
+                                        @else
+                                        <option selected value=0>Nicht Aktiv</option>
+                                        <option value=1>Aktiv</option>       
+                                        @endif      
+                                    </select>
+                                </div>
                             </div>
-                        </div> 
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Zusatz Info</label>
-                            <div class="col-md-6">
-                                <input type="text" class="form-control" name="extra" value="{{ $userShow->extra }}">
-                            </div>
-                        </div> 
-
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Password</label>
-                            <div class="col-md-6">
-                                <input type="password" class="form-control" name="password">
+                            @endif
+                            <div class="form-group">
+                                <div class="col-md-5 col-md-offset-2">
+                                    <button type="submit" class="btn btn-primary">
+                                        Änderung Speicheren 
+                                    </button>
+                                </div>
+                                <div class="col-md-5">
+                                    <a href="/settings/admin" class="btn btn-primary">
+                                        Zurück zur Übersicht
+                                    </a>
+                                </div>
                             </div>
                         </div>
-
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Password Bestätigung</label>
-                            <div class="col-md-6">
-                                <input type="password" class="form-control" name="password_confirmation"> 
-                            </div>
-                        </div>
-
-                        <!--                        <div class="form-group">
-                                                    <label class="col-md-4 control-label">Profil Bild</label>
-                                                    <div class="col-md-6">
-                                                        <input type="text" class="form-control" name="imagePath" value="{{ $userShow->imagePath }}"> 
-                                                    </div>
-                                                </div>-->
-
-                        @if(\Auth::user()->permission < 2 && \Auth::user()->username !==$userShow->username)
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Berechtigung</label>
-                            <div class="col-md-6">                              
-                                <select class="form-control" name="permission" value="{{ $userShow->permission }}">                                   
-                                    <option value="1">User Admin</option>
-                                    <option value="2">User</option>                                   
-                                </select>
-                            </div>
-                        </div>
-                        @endif
-                        @if(\Auth::user()->permission <1 && \Auth::user()->username !==$userShow->username)
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Aktiver Nutzer</label>
-                            <div class="col-md-6">                                   
-                                <select class="form-control" name="active" value="{{ $userShow->active }}">
-                                    <option value="0">Nicht Aktiv</option>
-                                    <option value="1">Aktiv</option>                                                                     
-                                </select>
-                            </div>
-                        </div>
-                        @endif
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Änderung Speicheren 
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-
-
-
+                    </div>
                 </div>
-                <div class="panel-heading">Profile Bild Einstellungen</div>
-                <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" enctype="multipart/form-data" action="{{'/settings/profile/'. $userShow->username.'/fileupload' }}">
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}"> 
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Aktuelles Bild</label>
-                            <div class="col-md-6">  
-                                <img src="{{ asset('/img/'.$userShow->imagePath) }}" class="img-circle" alt="User Image" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                             <label class="col-md-4 control-label">Neues Bild</label>
-                            <div class="col-md-6 col-md-offset-4">
-                                <input  class="btn btn-primary" type="file" id="file" name="file" accept="image/*">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Bild hochladen 
-                                </button>
-                            </div>
-                        </div>
-                    </form> 
-                </div>
-            </div>
+            </form> 
         </div>
     </div>
 </div>

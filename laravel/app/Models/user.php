@@ -57,5 +57,9 @@ class user extends Model implements AuthenticatableContract, CanResetPasswordCon
     public function activeDocuments() {
         return $this->hasMany('App\Models\active_document_part');
     }
+    
+      public function groupWhere($group_id) {
+          return   $this->hasMany('App\Models\user_in_group')->where('group_id', '=', '1');
+      }
 
 }

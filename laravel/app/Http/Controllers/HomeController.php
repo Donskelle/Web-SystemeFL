@@ -47,5 +47,16 @@ class HomeController extends Controller {
         $view->publicGroups = $this->getAuthGroups();
         return $view;
     }
+    
+    public function showAllNews() {
+        
+                
+        $view = view('news.allNews'); 
+        $view->privateDokus = $this->getAuthDocuments();
+        $view->publicGroups = $this->getAuthGroups();
+        $view->allNews = [];
+        return $view;
+    }
+
 
 }

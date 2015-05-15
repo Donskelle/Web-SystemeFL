@@ -13,6 +13,7 @@ use App\Models\document;
 use App\Models\group;
 use App\Models\user;
 use App\Models\user_in_group;
+use App\Models\document_in_group;
 
 class SettingsController extends Controller {
 
@@ -35,54 +36,19 @@ class SettingsController extends Controller {
     }
 
     public function showAdminSettings() {
-
         $allUsers = user::all();
         $allGroups = group::all();
-//        dd( $allUsers[1]->documents);
-//         
-//               
-//      dd(group::find(1),group::find(1)->users()->get(),group::find(1)->users()->find(1)->user);
-//        dd(user::find(2)->groups);
-//        dd(document::find(1)->group()->get() , document::find(1)->group);
-//        
-//        
-//        $allUser = \DB::table('users')->get();   
-//        
-//        $users = user::all();
-//        $user = user::find(1);
-//         //dd($allUser, $users[0], $user->name);
-//        
-//          $allUser = user_in_group::find(2)->user;
-//       
-//        $allUser = user::find(2)->groups;
-//        
-//        $allUser = user_in_group::has('user')->get();
-//         dd($allUser);
-//         $allUser = group::has('users')->get();
-//         dd($allUser);
-//         
-//        $allGroups = \DB::table('user_in_group')->select('group_id', \DB::raw('count(user_id) as total_user'))->groupBy('group_id')->get();
-//        
-//        $allGroups = \DB::table('document_in_group')->select('group_id', \DB::raw('count(document_id) as total_docu'))->groupBy('group_id')->get();
-//       
-//        $allGroups = \DB::table('groups')
-//                ->select('groups.id', 'name', 'description','active')
-//                ->leftJoin(\DB::table('user_in_group')->select('group_id', \DB::raw('count(user_id) as total_user'))->groupBy('group_id')->get(), 'group_id', '=', 'groups.id')
-//                ->leftJoin(\DB::table('document_in_group')->select('group_id', \DB::raw('count(document_id) as total_docu'))->groupBy('group_id')->get(), 'group_id', '=', 'groups.id')
-//                ->groupBy('groups.id')
-//                ->get();
-//
-//        dd($allGroups);
+        $allDocuments = document::all();
         $view = view('settings.adminSettings');
         $view->privateDokus = $this->getAuthDocuments();
         $view->publicGroups = $this->getAuthGroups();
         $view->allUsers = $allUsers;
         $view->allGroups = $allGroups;
+        $view->allDocuments = $allDocuments;
         return $view;
     }
 
     public function showGroup($group_id) {
-
         $group = group::find($group_id);
         $allDocuments = document::all();
         $allUsers = user::all();
@@ -92,6 +58,66 @@ class SettingsController extends Controller {
         $view->group = $group;
         $view->allDocuments = $allDocuments;
         $view->allUsers = $allUsers;
+        return $view;
+    }
+
+    public function saveGroup($group_id) {
+        $data = Input::all();
+        //Gruppen Einstellungen
+        $group = group::where('id', '=', $group_id)->first();
+        $group->name = $data['name'];
+        $group->description = $data['description'];
+        if (array_key_exists("active", $data)) {
+            $group->active = $data['active'];
+        }
+        $group->save();
+
+        //Benutzer in Gruppen
+        user_in_group::where('group_id', '=', $group_id)->delete();
+        $userID = 0;
+        foreach ($data as $key => $value) {
+            if (strpos($key, 'userID') !== false) {
+                $userID = $value;
+            }
+            if (strpos($key, 'usercheckbox') !== false) {
+                $user_in_group = new user_in_group;
+                $user_in_group->user_id = $userID;
+                $user_in_group->group_id = $group_id;
+                $user_in_group->save();
+            }
+        }
+
+        //Dokumente in Gruppen
+        document_in_group::where('group_id', '=', $group_id)->delete();
+        $documentID = 0;
+        foreach ($data as $key => $value) {
+            if (strpos($key, 'documentID') !== false) {
+                $documentID = $value;
+            }
+            if (strpos($key, 'documentcheckbox') !== false) {
+                document_in_group::where('document_id', '=', $documentID)->delete();
+                $document_in_group = new document_in_group;
+                $document_in_group->document_id = $documentID;
+                $document_in_group->group_id = $group_id;
+                $document_in_group->save();
+            }
+        }
+        return $this->showAdminSettings();
+    }
+
+    public function addNewGroup() {
+        $data = Input::all();
+        $validator = Validator::make($data, ['name' => 'required|min:4|max:255|unique:groups',]);
+        if ($validator->fails()) {
+            return $this->showAdminSettings();
+        } else {
+            $newGroup = group::create([
+                        'name' => $data['name'],
+                        'description' => "Gruppe hat noch keine Beschreibung",
+                        'active' => 1
+            ]);
+            return $this->showGroup($newGroup->id);
+        }
     }
 
     public function showProfil($username) {
