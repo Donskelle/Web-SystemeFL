@@ -27,9 +27,7 @@
         <script src="{{ asset('/plugins/jQuery/jQuery-2.1.3.min.js') }}"></script>
         <script src="{{ asset('/bootstrap/js/bootstrap.min.js') }}" type="text/javascript"></script>
         <script src="{{ asset('/js/app.min.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('/js/ace/ace.js') }}" type="text/javascript"></script>
-		
-		 <script src="{{ asset('/js/demo.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('/js/ace/ace.js') }}" type="text/javascript"></script>	
     </head>
     <body class="skin-red">
         <div class="wrapper">
@@ -64,18 +62,25 @@
             </footer>
         </div>
     </body>
+    
+<script type="text/javascript">
+    var my_skins = ["skin-blue", "skin-black", "skin-red", "skin-yellow", "skin-purple", "skin-green"];
+function change_skin(cls) {  
+  $.each(my_skins, function (i) {
+    $("body").removeClass(my_skins[i]);
+  });
+  $("body").addClass(cls);  
+  return false;
+}
+function setup() {
+    @if (Auth::check())
+    var tmp = "{{\Auth::user()->browser_layout}}";
+@else
+    var tmp = " ";
+@endif
+  if (tmp && $.inArray(tmp, my_skins))
+    change_skin(tmp);
+}
+setup();
+</script>
 </html>
-
-
-<!-- 
-@if (Auth::guest())
-                                                <li><a href="{{ url('/auth/login') }}">Login</a></li>
-                                                <li><a href="{{ url('/auth/register') }}">Register</a></li>
-                                        @else
-                                                <li class="dropdown">
-                                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
-                                                        <ul class="dropdown-menu" role="menu">
-                                                                <li><a href="{{ url('/auth/logout') }}">Logout</a></li>
-                                                        </ul>
-                                                </li>
-                                        @endif -->

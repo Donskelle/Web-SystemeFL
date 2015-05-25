@@ -38,25 +38,18 @@ class HomeController extends Controller {
      * @return Response
      */
     public function param($parameter) {
-        $view = view('home');
-        $view->Titel = "sipgate";
+        $view = view('home');      
         $view->p = $parameter;
-
-
-        $view->privateDokus = $this->getAuthDocuments();
+        $view->privateDocus = $this->getAuthDocuments();
         $view->publicGroups = $this->getAuthGroups();
         return $view;
     }
     
     public function showAllNews() {
-        
-                
         $view = view('news.allNews'); 
-        $view->privateDokus = $this->getAuthDocuments();
+        $view->privateDocus = $this->getAuthDocuments();
         $view->publicGroups = $this->getAuthGroups();
         $view->allNews = [];
         return $view;
     }
-
-
 }

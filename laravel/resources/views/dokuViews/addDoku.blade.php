@@ -8,10 +8,13 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Dokument Einstellungen</div>
+                <div class="panel-heading">Hinzufügen Einstellungen</div>
                 <div class="panel-body">                   
-                    <form class="form-horizontal" role="form" method="POST" action="/document/create">
+                    <form class="form-horizontal" role="form" method="POST" action="/document/add">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <input type="hidden" name="id" value="{{ $document->id }}">
+                          <input type="hidden" name="lastURL" value="{{ \URL::previous() }}">
+                         <input type="hidden" name="pathDocu" value="{{ $document->path }}">
                         <div class="form-group">
                             <label class="col-md-4 control-label">Name</label>
                             <div class="col-md-6">
@@ -23,23 +26,11 @@
                             <div class="col-md-6">
                                 <input type="text" class="form-control" name="path" value="">
                             </div>
-                        </div> 
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Layout</label>
-                            <div class="col-md-6">
-                                <select class="form-control" name="layout">
-                                    <option value="default">Layout1</option>    
-                                    <option value="sphinxdoc">Layout2</option>    
-                                    <option value="agogo">Layout3</option>    
-                                    <option value="sphinx_rtd_theme">Layout4</option> 
-                                    <option value="scrolls">Layout5</option>
-                                </select>                               
-                            </div>
-                        </div>                       
+                        </div>                            
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
-                                    news Dokument anlegen 
+                                    neuer Abschnitt erstellen 
                                 </button>
                             </div>
                         </div>

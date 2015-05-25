@@ -3,32 +3,36 @@
 @extends('nav.searchNav')
 @extends('nav.privateNav')
 @extends('nav.publicNav')
+@extends('dokuViews.aceEdit')
 
 @section('content')
-@foreach ($Dokument as $Part)
+<meta name="_token" content="{{ csrf_token() }}"/>
 <div class="box collapsed-box">
     <div class="box-header">
-        <?php echo html_entity_decode($Part['html']); ?>       
-        <!-- tools box -->
-        <div class="pull-right box-tools">
-            <button data-original-title="Collapse" class="btn btn-info btn-sm" data-widget="collapse" data-toggle="tooltip" title=""><i class="fa fa-pencil"></i></button>
-        </div><!-- /. tools -->
-    </div><!-- /.box-header -->
-    <div style="display: none;" class="box-body pad">      
-        <div id="{{$Part['id']}}"  style="width: 100%; height: 400px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{$Part['mardown']}}</div>
-        <script>
-            ace.edit("{{$Part['id']}}").setOption("wrap", 80);
-            ace.edit("{{$Part['id']}}").setHighlightActiveLine(true);
-            ace.edit("{{$Part['id']}}").setKeyboardHandler(null);
-            ace.edit("{{$Part['id']}}").setShowInvisibles(true);
-            ace.edit("{{$Part['id']}}").renderer.setShowGutter(true);
-            ace.edit("{{$Part['id']}}").setFadeFoldWidgets(false);
-            ace.edit("{{$Part['id']}}").setShowFoldWidgets(true);
-            ace.edit("{{$Part['id']}}").setReadOnly(false);
-            ace.edit("{{$Part['id']}}").getSession().setMode("ace/mode/markdown");
-            ace.edit("{{$Part['id']}}").setTheme("ace/theme/chrome");
-        </script>
-    </div>				
+        <div class="col-md-12">
+            <h3>Dokumenten Name: {{$document->name}}</h3>          
+        </div>
+        <div class="col-md-12">
+            <a class="btn btn-app" href="/settings/document/{{$document->id}}">
+                <i class="fa fa-edit"></i>Bearbeiten
+            </a>
+             <a class="btn btn-app" href="/document/add/{{$document->id}}">
+                <i class="fa fa-plus-square"></i>Abschnitt hinzufügen
+            </a>
+            <a class="btn btn-app" onclick="location.reload();">
+                <i class="fa fa-refresh"></i>Aktualisieren
+            </a>
+             
+            <a class="btn btn-app" href="http://{{$_SERVER['SERVER_ADDR']}}:8003/{{str_replace("/var/www/sphinx/","",$document->path)}}/build/html/">
+                <i class="fa fa-html5"></i>HTML 
+            </a>
+            <a class="btn btn-app">
+                <i class="fa fa-file-pdf-o"></i>PDF
+            </a>
+        </div>
+    </div> 			
 </div>
-@endforeach
+@parent
 @endsection
+
+

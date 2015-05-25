@@ -18,15 +18,19 @@
                     <div class="panel-body">    
 
                         <div class="form-group">
-                            <label class="col-md-6 control-label">Benutzer (Zusatzinfo)</label>  
-                            <label class="col-md-2 control-label">Zugewiesen</label> 
+                            <div class="col-md-9 form-group2">
+                                <label class="control-label label2">Benutzer (Zusatzinfo)</label>  
+                                <label class="control-label">Zugewiesen</label> 
+                            </div> 
                         </div> 
+                         <hr>
                         @foreach ($allUsers as $user)
+                        @if ($user->permission > 0)
                         <div class="form-group">
-                            <label class="col-md-6 control-label">{{$user->name}} </br>({{$user->extra}})</label>
-                            <div class="col-md-4">
+                            <div class="col-md-9 form-group2"> 
                                 <input type="hidden" name="userID-{{$user->id}}" value="{{$user->id}}">
-                                <div class="iphone-toggle-buttons">                                
+                                <div  class="iphone-toggle-buttons">
+                                    <label  class="control-label label2">{{$user->name}} ({{$user->extra}})</label>                                
                                     <?php $userIn = false; ?>
                                     @if(is_object($user->groups)) 
                                     @foreach ($user->groups as $singleGroup)
@@ -41,31 +45,55 @@
                                     @else
                                     <label for="usercheckbox-{{$user->id}}"><input type="checkbox" name="usercheckbox-{{$user->id}}" id="usercheckbox-{{$user->id}}"/><span></span></label>
                                     @endif
-                                </div>
+                                </div>                             
                             </div>
                         </div>
+                        @endif
                         @endforeach
                     </div>
                     <div class="panel-heading">Verwalten der Dokumente in der Gruppe {{$group->name}}</div>
                     <div class="panel-body">
-                        @foreach ($allDocuments as $document)                     
                         <div class="form-group">
-                            <label class="col-md-6 control-label">{{$document->name}}</label>
-                            <div class="col-md-4">
-                                <input type="hidden" name="documentID-{{$document->id}}" value="{{$document->id}}">
-                                <div class="iphone-toggle-buttons">                              
+                            <div class="col-md-9 form-group2">
+                                <label class="control-label label2">Dokument (Gruppe)</label>  
+                                <label class="control-label">Zugewiesen</label> 
+                            </div> 
+                        </div> 
+                        <hr>
+                        @foreach ($allDocuments as $document)
+                        <?php
+                        $userInGroup = false;
+                        foreach (\Auth::user()->groups as $singleGroupFromUser) {
+                            if (is_object($document->group)) {
+                                if ($singleGroupFromUser->group_id == $document->group->group_id) {
+                                    $userInGroup = true;
+                                }
+                            } else {
+                                $userInGroup = true;
+                            }
+                        }
+                        ?>
+                        @if($userInGroup ||\Auth::user()->permission == "0")
+                        <div class="form-group">
+                            <div class="col-md-9 form-group2"> 
+                                <input type="hidden" name="documentID-{{$document->id}}" value="{{$document->id}}">   
+                                <div class="iphone-toggle-buttons">            
+
                                     @if(is_object($document->group))     
+                                    <label class="control-label label2">{{$document->name}} ({{$document->group->group->name}} )</label>
                                     @if($document->group->group_id == $group->id)
                                     <label for="documentcheckbox-{{$document->id}}"><input type="checkbox" name="documentcheckbox-{{$document->id}}" id="documentcheckbox-{{$document->id}}" checked="checked"/><span></span></label>
                                     @else
                                     <label for="documentcheckbox-{{$document->id}}"><input type="checkbox" name="documentcheckbox-{{$document->id}}" id="documentcheckbox-{{$document->id}}"/><span></span></label>
                                     @endif
                                     @else
+                                    <label class="control-label label2">{{$document->name}} (hat keine Gruppe)</label>
                                     <label for="documentcheckbox-{{$document->id}}"><input type="checkbox" name="documentcheckbox-{{$document->id}}" id="documentcheckbox-{{$document->id}}"/><span></span></label>
                                     @endif
                                 </div>
                             </div> 
                         </div>
+                        @endif
                         @endforeach 
                     </div>
                     <div class="panel panel-default">                
@@ -101,16 +129,19 @@
                             </div>
                             @endif
                             <div class="form-group">
-                                <div class="col-md-5 col-md-offset-2">
+                                <div class="col-md-1"></div>  
+                                <div class="col-md-4">
                                     <button type="submit" class="btn btn-primary">
                                         Änderung Speicheren 
-                                    </button>
+                                    </button>  
                                 </div>
-                                <div class="col-md-5">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-4">
                                     <a href="/settings/admin" class="btn btn-primary">
                                         Zurück zur Übersicht
-                                    </a>
+                                    </a>   
                                 </div>
+                                <div class="col-md-1"></div>
                             </div>
                         </div>
                     </div>

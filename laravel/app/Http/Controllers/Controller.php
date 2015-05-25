@@ -34,6 +34,4 @@ abstract class Controller extends BaseController {
     public function getAllDocuments() {
         return \App\Models\document::all();
     }
-
-    
 }

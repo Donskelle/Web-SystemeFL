@@ -13,13 +13,13 @@
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">             
                 <!-- User Account Menu -->
-                
+
                 @if(\Auth::check())
                 <li class="dropdown user user-menu">			  
                     <!-- Menu Toggle Button -->
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <!-- The user image in the navbar-->
-                        
+
                         <img src="{{ asset('/img/'.\Auth::user()->imagePath) }}" class="user-image" alt="User Image"/>
                         <!-- hidden-xs hides the username on small devices so only the image appears. -->
                         <span class="hidden-xs">{{\Auth::user()->name}}</span>
@@ -47,10 +47,14 @@
                         <i class="fa fa-gears"></i>                 
                     </a>
                     <ul class="dropdown-menu">
-                        <li class="header">Einstellungen</li> 
-                        <li><a href="/settings/admin/"><i class="fa fa-desktop"></i> Admin Einstellungen</a></li>
-                        <li><a href="#"><i class="fa fa-desktop"></i> Anzeige</a></li>
-                        <li><a href="#"><i class="fa fa-info-circle"></i>  Hilfe</a></li>
+                        <li class="header">Einstellungen</li>
+                        @if(\Auth::check())
+                        @if(\Auth::user()->permission <2)
+                        <li><a href="/settings/admin/"><i class="fa fa-gears"></i> Admin Einstellungen</a></li>
+                        @endif
+                        @endif
+                        <li><a href="/settings/display"><i class="fa fa-desktop"></i> Anzeige</a></li>
+                        <li><a href="/help"><i class="fa fa-info-circle"></i>  Hilfe</a></li>
                     </ul>
                 </li>            
             </ul>

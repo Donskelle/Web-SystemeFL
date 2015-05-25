@@ -71,6 +71,23 @@ body {
 .layout-top-nav .main-footer {
     margin-left: 0;
 }
+@media (min-width: 992px) {
+    .form-group2 {
+      text-align: right;
+    }
+}
+@media (max-width: 991px) {
+    .label2 {
+      float: right;
+    }
+}
+@media (max-width: 991px) {
+    .btn {
+    width:100% ; 
+    }
+}
+
+
 @media (max-width: 767px) {
     .content-wrapper,
     .right-side,

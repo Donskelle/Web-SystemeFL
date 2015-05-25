@@ -6,6 +6,7 @@
 
 
 @section('content')
+@if(\Auth::user()->permission < 2)
 <div class="box">
     <div class="box-header">
         <h3 class="box-title">Benutzer Einstellungen</h3>
@@ -28,10 +29,28 @@
                     <th>Aktiv</th>
                 </tr>
             </thead>
-            <tbody>
-                @foreach ($allUsers as $user)
+            <tbody>                
+                @foreach ($allUsers as $user)            
+                <?php
+                $userEdit = false;
+
+                foreach (\Auth::user()->groups as $singleGroupFromAuth) {
+                    foreach ($user->groups as $singleGroupFromUser) {
+                        if ($singleGroupFromAuth->group_id == $singleGroupFromUser->group_id) {
+                            $userEdit = true;
+                        }
+                    }
+                }
+                if ($user->permission < 1) {
+                    $userEdit = false;
+                }
+                ?>
                 <tr>
-                    <td>  <a class="users-list-name" href="/settings/profile/{{$user->username}}"><i class="fa fa-pencil"></i></a></td>
+                    <td>  
+                        @if(\Auth::user()->permission <1 || $userEdit)
+                        <a class="users-list-name" href="/settings/profile/{{$user->username}}"><i class="fa fa-pencil"></i></a>
+                        @endif
+                    </td>
                     <td>{{$user->id}}</td>
                     <td>{{$user->username}}</td>
                     <td><img src="  {{ asset('/img/'.$user->imagePath) }}"  class="img-circle" alt="User Image" width="42" height="42"></td>
@@ -81,10 +100,21 @@
                 </tr>
             </thead>
             <tbody>
+                <?php $nr = 1; ?>
                 @foreach ($allGroups as $group)
+                <?php
+                $userInGroup = false;
+
+                foreach (\Auth::user()->groups as $singleGroupFromUser) {
+                    if ($singleGroupFromUser->group_id == $group->id) {
+                        $userInGroup = true;
+                    }
+                }
+                ?>
+                @if($userInGroup ||\Auth::user()->permission == "0")
                 <tr>
                     <td><a class="users-list-name" href="/settings/group/{{$group->id}}"><i class="fa fa-pencil"></i></a></td>
-                    <td>{{$group->id}}</td>
+                    <td>{{$nr++}}</td>
                     <td>{{$group->name}}</td>
                     <td>{{$group->description}}</td>
                     <td>{{count($group->users)}}</td>
@@ -95,6 +125,8 @@
                     <td><span class="label label-danger">nicht aktiv</span></td>
                     @endif
                 </tr>
+                @endif
+
                 @endforeach
             </tbody>
         </table>
@@ -107,7 +139,9 @@
             <div class="col-md-6">
                 <input type="text" class="form-control" name="name" value="">
             </div>
-            <button type="submit" class="col-md-3 btn btn-primary">Neue Gruppe anleggen </button>
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-primary">Neue Gruppe anleggen </button>
+            </div>
         </form>
     </div>
     @endif
@@ -135,11 +169,29 @@
                 </tr>
             </thead>
             <tbody>
+                <?php $nr = 1; ?>
                 @foreach ($allDocuments as $document)
-                @if(((!$document->group ) && \Auth::user()->permission < 1) ||($document->group ))
+                <?php
+                $userPermissionForDocument = false;
+
+                foreach (\Auth::user()->groups as $singleGroupFromUser) {
+                    if ($document->group) {
+                        if ($singleGroupFromUser->group_id == $document->group->group_id) {
+                            $userPermissionForDocument = true;
+                        }
+                    }
+                }
+                foreach (\Auth::user()->documents as $singleDocumentFromUser) {
+                    if ($singleDocumentFromUser->user_id == $document->user_id) {
+                        $userPermissionForDocument = true;
+                    }
+                }
+                ?>
+
+                @if(\Auth::user()->permission < 1 || $userPermissionForDocument)
                 <tr>
                     <td><a class="users-list-name" href="/settings/document/{{$document->id}}"><i class="fa fa-pencil"></i></a></td>
-                    <td>{{$document->id}}</td>
+                    <td>{{$nr++}}</td>
                     <td>{{$document->name}}</td>
                     <td>{{$document->path}}</td>
                     <td>{{$document->layout}}</td>
@@ -156,4 +208,5 @@
         </table>
     </div><!-- /.box-body -->   
 </div>
+@endif
 @endsection

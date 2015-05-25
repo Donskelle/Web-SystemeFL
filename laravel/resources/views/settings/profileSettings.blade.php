@@ -5,6 +5,7 @@
 @extends('nav.publicNav')
 
 @section('content')
+@if(\Auth::user()->permission <= $userShow->permission)
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
@@ -90,6 +91,74 @@
                             </div>
                         </div>
                         @endif
+                        @if(\Auth::user()->username ==$userShow->username)
+                        <hr>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Browser Anzeige Einstellungen</label>                    
+                            <input type="hidden" id="browser_layout" name="browser_layout" value="{{ $userShow->browser_layout }}">                         
+                        </div>                        
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <a href='javascript:void(0);' onclick='change_skin("skin-black");
+                                        document.getElementById("browser_layout").value = "skin-black";' style='display: block; box-shadow: -1px 1px 2px rgba(0,0,0,0.0);' class='clearfix full-opacity-hover'>
+                                    <div style='box-shadow: 0 0 2px rgba(0,0,0,0.1)' class='clearfix'><span style='display:block; width: 20%; float: left; height: 10px; background: #fefefe;'></span><span style='display:block; width: 80%; float: left; height: 10px; background: #fefefe;'></span></div>
+                                    <div><span style='display:block; width: 20%; float: left; height: 40px; background: #222;'></span><span style='display:block; width: 80%; float: left; height: 40px; background: #f4f5f7;'></span></div>
+                                    <p class='text-center'>Skin Black</p>
+                                </a>
+                            </div>
+                            <div class="col-md-3">
+                                <a href='javascript:void(0);' onclick='change_skin("skin-green");
+                                        document.getElementById("browser_layout").value = "skin-green";' style='display: block; box-shadow: -1px 1px 2px rgba(0,0,0,0.0);' class='clearfix full-opacity-hover'>
+                                    <div><span style='display:block; width: 20%; float: left; height: 10px;' class='bg-green-active'></span><span class='bg-green' style='display:block; width: 80%; float: left; height: 10px;'></span></div>
+                                    <div><span style='display:block; width: 20%; float: left; height: 40px; background: #222d32;'></span><span style='display:block; width: 80%; float: left; height: 40px; background: #f4f5f7;'></span></div>
+                                    <p class='text-center'>Skin Green</p>
+                                </a>
+                            </div>
+                            <div class="col-md-3">
+                                <a href='javascript:void(0);' onclick='change_skin("skin-red");
+                                        document.getElementById("browser_layout").value = "skin-red";' style='display: block; box-shadow: -1px 1px 2px rgba(0,0,0,0.0);' class='clearfix full-opacity-hover'>
+                                    <div><span style='display:block; width: 20%; float: left; height: 10px;' class='bg-red-active'></span><span class='bg-red' style='display:block; width: 80%; float: left; height: 10px;'></span></div>
+                                    <div><span style='display:block; width: 20%; float: left; height: 40px; background: #222d32;'></span><span style='display:block; width: 80%; float: left; height: 40px; background: #f4f5f7;'></span></div>
+                                    <p class='text-center'>Skin Red</p>
+                                </a>
+                            </div>
+                            <div class="col-md-3">
+                                <a href='javascript:void(0);' onclick='change_skin("skin-yellow");
+                                        document.getElementById("browser_layout").value = "skin-yellow";' style='display: block; box-shadow: -1px 1px 2px rgba(0,0,0,0.0);' class='clearfix full-opacity-hover'>
+                                    <div><span style='display:block; width: 20%; float: left; height: 10px;' class='bg-yellow-active'></span><span class='bg-yellow' style='display:block; width: 80%; float: left; height: 10px;'></span></div>
+                                    <div><span style='display:block; width: 20%; float: left; height: 40px; background: #222d32;'></span><span style='display:block; width: 80%; float: left; height: 40px; background: #f4f5f7;'></span></div>
+                                    <p class='text-center'>Skin Yellow</p>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Editor Layout</label>                        
+                            <input type="hidden" id="editor_layout" name="editor_layout" value="{{ $userShow->editor_layout }}">
+                        </div> 
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <a href='javascript:void(0);' onclick='document.getElementById("editor_layout").value = "skin-black";'
+                                   <p class='text-center'>Skin Black</p>
+                                </a>
+                            </div>
+                            <div class="col-md-3">
+                                <a href='javascript:void(0);' onclick='document.getElementById("editor_layout").value = "skin-black";'
+                                   <p class='text-center'>Skin Black</p>
+                                </a>
+                            </div>
+                            <div class="col-md-3">
+                                <a href='javascript:void(0);' onclick='document.getElementById("editor_layout").value = "skin-black";'
+                                   <p class='text-center'>Skin Black</p>
+                                </a>
+                            </div>
+                            <div class="col-md-3">
+                                <a href='javascript:void(0);' onclick='document.getElementById("editor_layout").value = "skin-black";'
+                                   <p class='text-center'>Skin Black</p>
+                                </a>
+                            </div>
+                        </div>
+                        @endif
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
@@ -98,22 +167,18 @@
                             </div>
                         </div>
                     </form>
-
-
-
                 </div>
                 <div class="panel-heading">Profile Bild Einstellungen</div>
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" enctype="multipart/form-data" action="{{'/settings/profile/'. $userShow->username.'/fileupload' }}">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}"> 
                         <div class="form-group">
-                            <label class="col-md-4 control-label">Aktuelles Bild</label>
+                            <label class="col-md-4 control-label">Aktuelles Bild </br> Neues Bild (Format 160x160 Pixel +-40)</label>
                             <div class="col-md-6">  
                                 <img src="{{ asset('/img/'.$userShow->imagePath) }}" class="img-circle" alt="User Image" />
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Neues Bild</label>
+                        <div class="form-group">                          
                             <div class="col-md-6 col-md-offset-4">
                                 <input  class="btn btn-primary" type="file" id="file" name="file" accept="image/*">
                             </div>
@@ -131,4 +196,6 @@
         </div>
     </div>
 </div>
+
+@endif
 @endsection

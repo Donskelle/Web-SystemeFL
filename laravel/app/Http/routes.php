@@ -23,15 +23,21 @@ Route::any('/settings/profile/{username}/fileupload', 'SettingsController@fileup
 Route::get('/settings/group/{groupId}', 'SettingsController@showGroup');
 Route::post('/settings/group/{groupId}/save', 'SettingsController@saveGroup');
 
+Route::get('/settings/document/{documentId}', 'SettingsController@showDocument');
+Route::post('/settings/document/{documentId}/save', 'SettingsController@saveDocument');
+
 Route::get('/settings/admin', 'SettingsController@showAdminSettings');
 Route::post('/settings/admin/addgroup', 'SettingsController@addNewGroup');
 
 Route::get('/news', 'HomeController@showAllNews');
-Route::get('/dokumete', 'DokuController@index');
-Route::get('/dokumete/{access}', 'DokuController@param1');
-Route::get('/dokumete/{access}/{dokuOrGroup}', 'DokuController@param2');
-Route::get('/dokumete/{access}/{group}/{doku}', 'DokuController@param3');
+Route::get('/document', 'DokuController@index');
+Route::get('/document/new', 'DokuController@newDocu');
+Route::post('/document/create', 'DokuController@createDocu');
+Route::post('/document/add', 'DokuController@addDocu');
+Route::get('/document/{access}/{docuOrGroup}', 'DokuController@param2');
+Route::get('/document/{access}/{group}/{docu}', 'DokuController@param3');
 
+Route::any('/document/save', 'DokuController@saveDocu');
 Route::controllers([
     'auth' => 'Auth\AuthController',
     'password' => 'Auth\PasswordController',

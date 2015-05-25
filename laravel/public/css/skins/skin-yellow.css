@@ -36,10 +36,7 @@
 @media (max-width: 767px) {
   .skin-yellow .main-header .navbar .dropdown-menu li.divider {
     background-color: rgba(255, 255, 255, 0.1);
-  }
-  .skin-yellow .main-header .navbar .dropdown-menu li a {
-    color: #fff;
-  }
+  } 
   .skin-yellow .main-header .navbar .dropdown-menu li a:hover {
     background: #e08e0b;
   }

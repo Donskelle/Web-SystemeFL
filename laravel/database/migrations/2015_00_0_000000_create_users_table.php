@@ -19,7 +19,9 @@ class CreateUsersTable extends Migration {
 			$table->string('name');                       
 			$table->string('password', 60);
                         $table->string('imagePath');
-                        $table->string('extra');                        
+                        $table->string('extra'); 
+                          $table->string('browser_layout');
+                            $table->string('editor_layout');
                         $table->integer('permission');                        
                         $table->integer('active');
 			$table->rememberToken();

@@ -40,7 +40,7 @@ class SettingsController extends Controller {
         $allGroups = group::all();
         $allDocuments = document::all();
         $view = view('settings.adminSettings');
-        $view->privateDokus = $this->getAuthDocuments();
+        $view->privateDocus = $this->getAuthDocuments();
         $view->publicGroups = $this->getAuthGroups();
         $view->allUsers = $allUsers;
         $view->allGroups = $allGroups;
@@ -48,12 +48,48 @@ class SettingsController extends Controller {
         return $view;
     }
 
+    public function showDocument($document_id) {
+        $document = document::where('id', '=', $document_id)->first();
+        $allGroups = group::all();
+        $view = view('settings.documentSettings');
+        $view->privateDocus = $this->getAuthDocuments();
+        $view->publicGroups = $this->getAuthGroups();
+        $view->document = $document;
+        $view->allGroups = $allGroups;
+        return $view;
+    }
+
+    public function saveDocument($document_id) {
+        $data = Input::all();     
+        //Dokument Einstellungen
+        $document = document::where('id', '=', $document_id)->first();
+        
+       
+        $this->changeValueInConf($document->name,$data['name'],$document->path);
+        $document->name = $data['name'];
+        $document->path = $data['path'];
+        $this->changeValueInConf($document->layout,$data['layout'],$document->path);
+        $document->layout = $data['layout'];
+        $document->save();
+
+        //Dokument in Gruppen
+        document_in_group::where('document_id', '=', $document_id)->delete();
+        $document_in_group = new document_in_group;
+        $document_in_group->document_id = $document_id;
+        $document_in_group->group_id = $data['group_id'];        
+        $document_in_group->save();
+        return redirect($data['lastURL']);        
+    }
+    private function changeValueInConf($olt, $new, $path) {
+        $output = shell_exec("sudo perl -pi -e 's/$olt/$new/g' $path/source/conf.py");
+        //dd($output);
+    }
     public function showGroup($group_id) {
         $group = group::find($group_id);
         $allDocuments = document::all();
         $allUsers = user::all();
         $view = view('settings.groupSettings');
-        $view->privateDokus = $this->getAuthDocuments();
+        $view->privateDocus = $this->getAuthDocuments();
         $view->publicGroups = $this->getAuthGroups();
         $view->group = $group;
         $view->allDocuments = $allDocuments;
@@ -123,14 +159,14 @@ class SettingsController extends Controller {
     public function showProfil($username) {
         $user = \DB::table('users')->where('username', $username)->first();
         $view = view('settings.profileSettings');
-        $view->privateDokus = $this->getAuthDocuments();
+        $view->privateDocus = $this->getAuthDocuments();
         $view->publicGroups = $this->getAuthGroups();
         $view->userShow = $user;
         return $view;
     }
 
     public function saveProfil($username) {
-        $data = Input::all();
+        $data = Input::all();       
         if ($data["password"] === "" && $data["password_confirmation"] === "") {
             $validator = Validator::make($data, [
                         'name' => 'required|max:255',
@@ -152,20 +188,25 @@ class SettingsController extends Controller {
 //            return redirect('auth/profileSettings')->withInput($data->only('name','imagePath','extra','permission','active'))
 //                        ->withErrors([
 //                            'imagePath' => 'Es ist kein Bild vorhanden.',]);
-        $update = [];
-        $update["name"] = $data["name"];
-        $update["extra"] = $data["extra"];
+        
+        
+        $user = user::where('username', '=', $username)->first();         
+        $user->name = $data['name'];
+        $user->extra = $data['extra'];    
+        $user->browser_layout = $data['browser_layout'];
+        $user->editor_layout = $data['editor_layout'];
         if (array_key_exists("permission", $data)) {
-            $update["permission"] = $data["permission"];
+             $user->permission = $data["permission"];
         }
         if (array_key_exists("active", $data)) {
 
-            $update["active"] = $data["active"];
+            $user->active = $data["active"];
         }
         if ($data["password"] !== "") {
-            $update["password"] = bcrypt($data["password"]);
+            $user->password = bcrypt($data["password"]);
         }
-        \DB::table('users')->where('username', $username)->update($update);
+          $user->save();
+       
         if (\Auth::user()->username === $username) {
             return redirect('/');
         } else {
