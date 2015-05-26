@@ -38,6 +38,7 @@ Route::get('/document/{access}/{docuOrGroup}', 'DokuController@param2');
 Route::get('/document/{access}/{group}/{docu}', 'DokuController@param3');
 
 Route::any('/document/save', 'DokuController@saveDocu');
+Route::any('/document/downloadPDF', 'DokuController@getPDF');
 Route::controllers([
     'auth' => 'Auth\AuthController',
     'password' => 'Auth\PasswordController',

@@ -55,12 +55,12 @@ class DokuController extends Controller {
      *
      * @return Response
      */
-    public function param2($access, $docuID) {        
+    public function param2($access, $docuID) {
         $document = document::where("id", "=", $docuID)->first();
-        if($document==NULL)
+        if ($document == NULL)
             return view('errors.404');
         $view = $this->getView($access);
-        $view->docuAccess = $access;      
+        $view->docuAccess = $access;
         $view->document = $document;
         if ($access != "add") {
             $view->documentContent = $this->getDocument($view->document->path);
@@ -72,7 +72,7 @@ class DokuController extends Controller {
 
     public function param3($access, $group, $docuID) {
         $document = document::where("id", "=", $docuID)->first();
-          if($document==NULL)
+        if ($document == NULL)
             return view('errors.404');
         $view = $this->getView($access);
         $view->docuAccess = $access;
@@ -125,23 +125,23 @@ class DokuController extends Controller {
         $this->changeValueInConf("#language = None", "language =\"de\"", $document->path);
         $this->makeHTML($document->path);
 
-        return redirect('/document/private/'.$document->id);
+        return redirect('/document/private/' . $document->id);
     }
 
     public function addDocu() {
         $data = Input::all();
         $filename = $data['pathDocu'] . "/source/" . $data['name'] . ".rst";
         if (file_exists($filename)) {
-            return redirect('/document/add/'.$data['id'])->withInput();
+            return redirect('/document/add/' . $data['id'])->withInput();
         } else {
-           $rstFile= fopen($filename, "w");
-            fwrite($rstFile, "Neuer Abschnitt". PHP_EOL);
-            fwrite($rstFile, "---------------". PHP_EOL);
+            $rstFile = fopen($filename, "w");
+            fwrite($rstFile, "Neuer Abschnitt" . PHP_EOL);
+            fwrite($rstFile, "---------------" . PHP_EOL);
             fclose($rstFile);
             $this->changeRechte();
             $this->makeHTML($data['pathDocu']);
         }
-    return redirect($data['lastURL']);       
+        return redirect($data['lastURL']);
     }
 
     private function createSphinxDoc($path, $name, $authorName) {
@@ -166,13 +166,21 @@ class DokuController extends Controller {
     }
 
     private function makeHTML($path) {
-        $output = shell_exec("sudo sphinx-build -b html $path/source/ $path/build/html");
+        $output = shell_exec("sudo /var/www/sphinx/./myMake.sh " . $path . " html");
+        //$output = shell_exec("sudo sphinx-build -b html $path/source/ $path/build/html");
         //dd($output);
     }
 
     private function makePDF($path) {
-        $output = shell_exec("sphinx-build -b latex $path/source/ $path/build/latex");
-        //dd($output);
+        $output = shell_exec("sudo /var/www/sphinx/./myMake.sh " . $path . " latexpdf");
+        //dd($output);      
+    }
+
+    public function getPDF() {
+        $data = Input::all();
+        $document = document::where("id", "=", $data['docuId'])->first();
+        $this->makePDF($document->path);
+        return str_replace("/var/www/sphinx/","",$document->path) . "/build/latex/" . $document->name . ".pdf";
     }
 
     public function getDocument($docuPath) {
@@ -244,7 +252,7 @@ class DokuController extends Controller {
     public function readHtml($path) {
         $homepage = file_get_contents($path);
         $dom = new \DOMDocument();
-        
+
         $dom->loadHTML($homepage);
         $xpath = new \DOMXpath($dom);
 

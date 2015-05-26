@@ -22,17 +22,17 @@
             <a class="btn btn-app" href="/settings/document/{{$document->id}}">
                 <i class="fa fa-edit"></i>Bearbeiten
             </a>
-             <a class="btn btn-app" href="/document/add/{{$document->id}}">
+            <a class="btn btn-app" href="/document/add/{{$document->id}}">
                 <i class="fa fa-plus-square"></i>Abschnitt hinzufügen
             </a>
             <a class="btn btn-app" onclick="location.reload();">
                 <i class="fa fa-refresh"></i>Aktualisieren
             </a>
-             
-            <a class="btn btn-app" href="http://192.168.178.32:8003/5_DokuTest6/build/html/">
+
+            <a class="btn btn-app" onclick="window.open('http://{{$_SERVER['SERVER_ADDR']}}:8003/{{str_replace('/var/www/sphinx/','',$document->path)}}/build/html/','_blank');">
                 <i class="fa fa-html5"></i>HTML
             </a>
-            <a class="btn btn-app">
+            <a class="btn btn-app" onclick="downloadPDF()">
                 <i class="fa fa-file-pdf-o"></i>PDF
             </a>
 

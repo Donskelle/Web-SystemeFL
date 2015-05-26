@@ -38,31 +38,47 @@
 <script>
             function saveDoc(id)
             {
-            var url = "http://192.168.178.32:8000/document/save";
-                    var $post = {};
-                    $post.docuId = {{$document->id}};
-                    $post.docuAccess = '{{$docuAccess}}';
-                    $post.partId = id;
-                    $post.name = $('input#' + id + '_name').val();
-                    var editor = ace.edit(id);
-                    $post.makedown = editor.getSession().getValue();
-                    $.ajax({
-                    type: "POST",
-                        url: url,
-                        data: $post,
-                        cache: false,
-                        success: function (data) {
-                            if (data.overwrite){
-                                    location.reload();
-                            }
-                            else{
-                            console.log(data);
-                            document.getElementById(data.id+'_header').innerHTML= data.html;
-                            document.getElementById(data.id+'_collapse').click();
-                            }
+                var url = "http://{{$_SERVER['SERVER_ADDR']}}:8000/document/save";
+                var $post = {};
+                $post.docuId = {{$document->id}};
+                $post.docuAccess = '{{$docuAccess}}';
+                $post.partId = id;
+                $post.name = $('input#' + id + '_name').val();
+                var editor = ace.edit(id);
+                $post.makedown = editor.getSession().getValue();
+                $.ajax({
+                type: "POST",
+                    url: url,
+                    data: $post,
+                    cache: false,
+                    success: function (data) {
+                        if (data.overwrite){
+                                location.reload();
                         }
-                    });
-                    return false;
+                        else{
+                        console.log(data);
+                        document.getElementById(data.id+'_header').innerHTML= data.html;
+                        document.getElementById(data.id+'_collapse').click();
+                        }
+                    }
+                });
+                return false;
+            }
+            function downloadPDF()
+            {
+                var url = "http://{{$_SERVER['SERVER_ADDR']}}:8000/document/downloadPDF";
+                var $post = {};
+                $post.docuId = {{$document->id}};                  
+                $.ajax({
+                type: "POST",
+                    url: url,
+                    data: $post,
+                    cache: false,
+                    success: function (data) {    
+                        window.open("http://{{$_SERVER['SERVER_ADDR']}}:8003/"+data,'_blank');                       
+                    }
+                });
+                return false;
             }
 
     $.ajaxSetup({
