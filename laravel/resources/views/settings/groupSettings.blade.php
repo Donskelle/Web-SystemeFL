@@ -23,7 +23,7 @@
                                 <label class="control-label">Zugewiesen</label> 
                             </div> 
                         </div> 
-                         <hr>
+                        <hr>
                         @foreach ($allUsers as $user)
                         @if ($user->permission > 0)
                         <div class="form-group">
@@ -79,12 +79,18 @@
                                 <input type="hidden" name="documentID-{{$document->id}}" value="{{$document->id}}">   
                                 <div class="iphone-toggle-buttons">            
 
-                                    @if(is_object($document->group))     
+                                    @if(is_object($document->group))  
+                                    @if($document->group->group_id > 0)    
                                     <label class="control-label label2">{{$document->name}} ({{$document->group->group->name}} )</label>
                                     @if($document->group->group_id == $group->id)
                                     <label for="documentcheckbox-{{$document->id}}"><input type="checkbox" name="documentcheckbox-{{$document->id}}" id="documentcheckbox-{{$document->id}}" checked="checked"/><span></span></label>
                                     @else
                                     <label for="documentcheckbox-{{$document->id}}"><input type="checkbox" name="documentcheckbox-{{$document->id}}" id="documentcheckbox-{{$document->id}}"/><span></span></label>
+                                    @endif
+                                    @else
+                                    <label class="control-label label2">{{$document->name}} (hat keine Gruppe)</label>
+                                    <label for="documentcheckbox-{{$document->id}}"><input type="checkbox" name="documentcheckbox-{{$document->id}}" id="documentcheckbox-{{$document->id}}"/><span></span></label>
+
                                     @endif
                                     @else
                                     <label class="control-label label2">{{$document->name}} (hat keine Gruppe)</label>

@@ -189,15 +189,19 @@
                 ?>
 
                 @if(\Auth::user()->permission < 1 || $userPermissionForDocument)
-                <tr>
+                <tr>   
                     <td><a class="users-list-name" href="/settings/document/{{$document->id}}"><i class="fa fa-pencil"></i></a></td>
                     <td>{{$nr++}}</td>
                     <td>{{$document->name}}</td>
                     <td>{{$document->path}}</td>
                     <td>{{$document->layout}}</td>
                     <td>{{$document->user->name}} ({{$document->user->extra}} )</td>
-                    @if($document->group)
+                    @if(is_object($document->group))
+                    @if($document->group->group_id > 0)
                     <td>{{$document->group->group->name}}</td>
+                    @else
+                    <td>Private</td>
+                    @endif
                     @else
                     <td>Private</td>
                     @endif

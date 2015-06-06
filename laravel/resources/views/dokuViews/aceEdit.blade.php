@@ -38,7 +38,7 @@
 <script>
             function saveDoc(id)
             {
-                var url = "http://{{$_SERVER['SERVER_ADDR']}}:8000/document/save";
+                var url = "http://{{$_SERVER['SERVER_NAME']}}:8000/document/save";
                 var $post = {};
                 $post.docuId = {{$document->id}};
                 $post.docuAccess = '{{$docuAccess}}';
@@ -66,7 +66,7 @@
             }
             function downloadPDF()
             {
-                var url = "http://{{$_SERVER['SERVER_ADDR']}}:8000/document/downloadPDF";
+                var url = "http://{{$_SERVER['SERVER_NAME']}}:8000/document/downloadPDF";
                 var $post = {};
                 $post.docuId = {{$document->id}};                  
                 $.ajax({
@@ -75,7 +75,7 @@
                     data: $post,
                     cache: false,
                     success: function (data) {    
-                        window.open("http://{{$_SERVER['SERVER_ADDR']}}:8003/"+data,'_blank');                       
+                        window.open("http://{{$_SERVER['SERVER_NAME']}}:8003/"+data,'_blank');                       
                     }
                 });
                 return false;

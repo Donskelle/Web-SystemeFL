@@ -45,11 +45,20 @@ class HomeController extends Controller {
         return $view;
     }
     
-    public function showAllNews() {
-        $view = view('news.allNews'); 
+    public function showNews() {
+        
+        $view = view('news.allNews');
+        $view->Titel = "Neues Dokument";
         $view->privateDocus = $this->getAuthDocuments();
         $view->publicGroups = $this->getAuthGroups();
-        $view->allNews = [];
+        $view->allNews = $this->getAllNews();
+        return $view;
+    }
+     public function showHelp() {
+        $view = view('help');
+        $view->Titel = "Neues Dokument";
+        $view->privateDocus = $this->getAuthDocuments();
+        $view->publicGroups = $this->getAuthGroups();
         return $view;
     }
 }

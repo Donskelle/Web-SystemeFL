@@ -28,8 +28,8 @@
             <a class="btn btn-app" onclick="location.reload();">
                 <i class="fa fa-refresh"></i>Aktualisieren
             </a>
-
-            <a class="btn btn-app" onclick="window.open('http://{{$_SERVER['SERVER_ADDR']}}:8003/{{str_replace('/var/www/sphinx/','',$document->path)}}/build/html/','_blank');">
+          
+            <a class="btn btn-app" onclick="window.open('http://{{$_SERVER['SERVER_NAME']}}:8003/{{str_replace('/var/www/sphinx/','',$document->path)}}/build/html/','_blank');">
                 <i class="fa fa-html5"></i>HTML
             </a>
             <a class="btn btn-app" onclick="downloadPDF()">

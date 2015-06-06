@@ -53,7 +53,7 @@
                         <li><a href="/settings/admin/"><i class="fa fa-gears"></i> Admin Einstellungen</a></li>
                         @endif
                         @endif
-                        <li><a href="/settings/display"><i class="fa fa-desktop"></i> Anzeige</a></li>
+                        <li><a href="/news"><i class="fa fa-desktop"></i> News Anzeige</a></li>
                         <li><a href="/help"><i class="fa fa-info-circle"></i>  Hilfe</a></li>
                     </ul>
                 </li>            
