@@ -9,12 +9,11 @@ use App\Models\document;
 class DokuController extends Controller {
     /*
       |--------------------------------------------------------------------------
-      | Home Controller
+      | Doku Controller
       |--------------------------------------------------------------------------
       |
-      | This controller renders your application's "dashboard" for users that
-      | are authenticated. Of course, you are free to change or remove the
-      | controller as you wish. It is just here to get your app started!
+      |Dieser Controller dient zum Anzeigen der Verschiedenen Dokumenten,
+      |so wie die Bearbeitung und Anzeige der entsprechenden Ausgabe Formate
       |
      */
 
@@ -26,18 +25,9 @@ class DokuController extends Controller {
     public function __construct() {
         $this->middleware('auth');
     }
-
+    
     /**
-     * Show the application dashboard to the user.
-     *
-     * @return Response
-     */
-    public function index() {
-        return $this->param1("");
-    }
-
-    /**
-     * Show the application dashboard to the user.
+     * gibt das View zum anlegen eines neuen Dokuments zurück
      *
      * @return Response
      */
@@ -50,7 +40,7 @@ class DokuController extends Controller {
     }
 
     /**
-     * Show the application dashboard to the user.
+     * Gibt ein Dokument zurück aus dem Privaten Bereich
      *
      * @return Response
      */
@@ -68,7 +58,12 @@ class DokuController extends Controller {
         $view->publicGroups = $this->getAuthGroups();
         return $view;
     }
-
+    
+    /**
+     * Gibt ein Dokument zurück aus dem Public Bereich
+     *
+     * @return Response
+     */
     public function param3($access, $group, $docuID) {
         $document = document::where("id", "=", $docuID)->first();
         if ($document == NULL)
@@ -82,7 +77,11 @@ class DokuController extends Controller {
         $view->publicGroups = $this->getAuthGroups();
         return $view;
     }
-
+    /**
+     * Gibt ein das entsprechende View zurück
+     *
+     * @return Response
+     */
     private function getView($access) {
         if ($access == "private") {
             return view('dokuViews.privateDoku');
@@ -97,6 +96,11 @@ class DokuController extends Controller {
         }
     }
 
+    /**
+     * Erstellt ein neues Dokument auf dem Server mit den entsprechenden Paramenter im Post
+     *
+     * @return Response
+     */
     public function createDocu() {
         $data = Input::all();
         if ($data["path"] == "") {
@@ -126,7 +130,11 @@ class DokuController extends Controller {
 
         return redirect('/document/private/' . $document->id);
     }
-
+    /**
+     * Erstellt einen neuen Abschnitt für das entsprechende Dokument auf dem Server an
+     *
+     * @return Letzte Adresse
+     */
     public function addDocu() {
         $data = Input::all();
         $filename = $data['pathDocu'] . "/source/" . $data['name'] . ".rst";
@@ -143,6 +151,9 @@ class DokuController extends Controller {
         return redirect($data['lastURL']);
     }
 
+    /**
+     * Erstellt ein neues Dokument mittels Sphinx über eine eigens geschriebende python Datei
+     */
     private function createSphinxDoc($path, $name, $authorName) {
         $shell_Befehl = "/var/www/sphinx/create ";
         $shell_Befehl.= sprintf(" %s", $path);    //Project name
@@ -154,34 +165,67 @@ class DokuController extends Controller {
         //dd($output);
     }
 
+    /**
+     * Rechte auf dem Server neu setzten für eine Fest gesetzte Gruppe www 
+     * und den beinhalteten Nutzeren pharao und www-data     
+     */
     private function changeRechte() {
         $output = shell_exec("sudo /var/www/sphinx/./rechte.sh");
         //dd($output);
     }
-
+    /**
+     * Austauschen der Variablen der Config mittels fester Definitionen
+     * Layout
+     * Autor
+     * Verison
+     * 
+     * @param type $olt
+     * @param type $new
+     * @param type $path
+     */
     private function changeValueInConf($olt, $new, $path) {
         $output = shell_exec("sudo perl -pi -e 's/$olt/$new/g' $path/source/conf.py");
         //dd($output);
     }
 
+    /**
+     * Generierung der HTML Ausgabe mittels der myMake.sh
+     * @param type $path
+     */
     private function makeHTML($path) {
         $output = shell_exec("sudo /var/www/sphinx/./myMake.sh " . $path . " html");
         //$output = shell_exec("sudo sphinx-build -b html $path/source/ $path/build/html");
         //dd($output);
     }
-
+    
+    /**
+     * Generierung der PDF Ausgabe mittels der myMake.sh
+     * @param type $path
+     */
     private function makePDF($path) {
         $output = shell_exec("sudo /var/www/sphinx/./myMake.sh " . $path . " latexpdf");
         //dd($output);      
     }
 
+    /**
+     * Generierung der PDF und Ausgabe 
+     * @return type
+     */
     public function getPDF() {
         $data = Input::all();
         $document = document::where("id", "=", $data['docuId'])->first();
         $this->makePDF($document->path);
-        return str_replace("/var/www/sphinx/","",$document->path) . "/build/latex/" . $document->name . ".pdf";
+        return str_replace("/var/www/sphinx/", "", $document->path) . "/build/latex/" . $document->name . ".pdf";
     }
 
+    /**
+     * Gibt alle Abschnitte als HTML und Markdown zurück 
+     * um die entsprechenden Abschnitte zu berabeiten
+     * 
+     * 
+     * @param type $docuPath
+     * @return array
+     */
     public function getDocument($docuPath) {
         $Document = [];
         $countID = 0;
@@ -243,11 +287,29 @@ class DokuController extends Controller {
         return $Document;
     }
 
+    /**
+     * Liest die entsprechende rst Datei und gibt den Hinhalt zurück 
+     * 
+     * @param type $path
+     * @return type
+     */
     public function readMardown($path) {
         $contents = file_get_contents($path);
         return $contents;
     }
 
+    /**
+     * Liest die entsprechende HTML Datei und gibt nur den entsprechenden Content zurück
+     * Der Conntent hengt vom Layout ab
+     * 
+     * Wichtig es werden nicht alle HTML Tags unterstüzt 
+     * Selection
+     * Nav
+     * ...
+     * 
+     * @param type $path
+     * @return type
+     */
     public function readHtml($path) {
         $homepage = file_get_contents($path);
         $dom = new \DOMDocument();
@@ -265,6 +327,20 @@ class DokuController extends Controller {
         return $htmlString;
     }
 
+    /**
+     * Speichert die Änderungen an dem Dokument 
+     * und generiert die entsprechende HTML Ausgabe neu
+     * 
+     * Wenn die geänderte Datei die Index Datei ist wird die Seite neu geladen 
+     * 
+     * Wenn nicht wird der entsprechende Teil mittel Ajax neu Ausgegeben
+     * 
+     * Es kann nur eine Datei zurzeit geändert werden 
+     * wenn man an meherer arbeit die Index Datei als letztes Speicheren 
+     * 
+     * 
+     * @return type
+     */
     public function saveDocu() {
         $data = Input::all();
 

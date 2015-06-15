@@ -13,7 +13,6 @@
 
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index');
-Route::get('/home/{parameter}', 'HomeController@param');
 
 Route::get('/news', 'HomeController@showNews');
 Route::get('/help', 'HomeController@showHelp');
@@ -32,7 +31,6 @@ Route::post('/settings/document/{documentId}/save', 'SettingsController@saveDocu
 Route::get('/settings/admin', 'SettingsController@showAdminSettings');
 Route::post('/settings/admin/addgroup', 'SettingsController@addNewGroup');
 
-Route::get('/document', 'DokuController@index');
 Route::get('/document/new', 'DokuController@newDocu');
 Route::post('/document/create', 'DokuController@createDocu');
 Route::post('/document/add', 'DokuController@addDocu');

@@ -27,13 +27,14 @@ class group extends Model {
      */
     protected $hidden = [];
 
-     /**
+    /**
      * One To Many
      * @return type
      */
     public function users() {
         return $this->hasMany('App\Models\user_in_group');
     }
+
     /**
      * One To Many
      * @return type
@@ -41,4 +42,5 @@ class group extends Model {
     public function documents() {
         return $this->hasMany('App\Models\document_in_group');
     }
+
 }

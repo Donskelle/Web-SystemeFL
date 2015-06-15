@@ -8,9 +8,9 @@ class HomeController extends Controller {
       | Home Controller
       |--------------------------------------------------------------------------
       |
-      | This controller renders your application's "dashboard" for users that
-      | are authenticated. Of course, you are free to change or remove the
-      | controller as you wish. It is just here to get your app started!
+      | Benihalte die Startseite 
+      | Eine übersicht der Letzten änderung für den Admin
+      | und eine Help Seite mit Tips und Tricks
       |
      */
 
@@ -24,29 +24,24 @@ class HomeController extends Controller {
     }
 
     /**
-     * Show the application dashboard to the user.
+     * Gibt die Startseite zurück 
+     * auf der eine kleine Einleitung verfasst ist
      *
      * @return Response
      */
-    public function index() {
-        return $this->param("");
-    }
-
-    /**
-     * Show the application dashboard to the user.
-     *
-     * @return Response
-     */
-    public function param($parameter) {
-        $view = view('home');      
-        $view->p = $parameter;
+    public function index() {      
+        $view = view('home');     
         $view->privateDocus = $this->getAuthDocuments();
         $view->publicGroups = $this->getAuthGroups();
         return $view;
     }
-    
+
+    /**
+     * Gibt Die Admin Seite für die Übersicht der Änderung zurück
+     * @return type
+     */
     public function showNews() {
-        
+
         $view = view('news.allNews');
         $view->Titel = "Neues Dokument";
         $view->privateDocus = $this->getAuthDocuments();
@@ -54,11 +49,17 @@ class HomeController extends Controller {
         $view->allNews = $this->getAllNews();
         return $view;
     }
-     public function showHelp() {
+
+    /**
+     * Gibt die Help Seite zurück in der Wichtige Tips stehen
+     * @return type
+     */
+    public function showHelp() {
         $view = view('help');
         $view->Titel = "Neues Dokument";
         $view->privateDocus = $this->getAuthDocuments();
         $view->publicGroups = $this->getAuthGroups();
         return $view;
     }
+
 }

@@ -14,6 +14,11 @@ abstract class Controller extends BaseController {
     public function __construct() {
         
     }
+    
+    /**
+     * Hilfsfunktionen für die leichtere benutzung der Datenübertragung
+     * @return type
+     */
 
     public function getAuthDocuments() {
         return \Auth::user()->documents;

@@ -13,8 +13,8 @@
                     <form class="form-horizontal" role="form" method="POST" action="/document/add">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <input type="hidden" name="id" value="{{ $document->id }}">
-                          <input type="hidden" name="lastURL" value="{{ \URL::previous() }}">
-                         <input type="hidden" name="pathDocu" value="{{ $document->path }}">
+                        <input type="hidden" name="lastURL" value="{{ \URL::previous() }}">
+                        <input type="hidden" name="pathDocu" value="{{ $document->path }}">
                         <div class="form-group">
                             <label class="col-md-4 control-label">Name</label>
                             <div class="col-md-6">

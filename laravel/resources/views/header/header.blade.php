@@ -13,13 +13,11 @@
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">             
                 <!-- User Account Menu -->
-
                 @if(\Auth::check())
                 <li class="dropdown user user-menu">			  
                     <!-- Menu Toggle Button -->
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <!-- The user image in the navbar-->
-
                         <img src="{{ asset('/img/'.\Auth::user()->imagePath) }}" class="user-image" alt="User Image"/>
                         <!-- hidden-xs hides the username on small devices so only the image appears. -->
                         <span class="hidden-xs">{{\Auth::user()->name}}</span>

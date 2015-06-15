@@ -13,11 +13,11 @@ class UserInGroupTableSeeder extends Seeder {
                 'group_id' => "1"
             ],
             [
-               'user_id' => "2",
+                'user_id' => "2",
                 'group_id' => "1"
             ],
             [
-              'user_id' => "2",
+                'user_id' => "2",
                 'group_id' => "3"
             ]
         ];

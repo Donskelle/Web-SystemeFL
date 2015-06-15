@@ -51,7 +51,7 @@
                                             selected 
                                             @endif
                                             >Layout4</option>  
-                                      <option value="scrolls" 
+                                    <option value="scrolls" 
                                             @if($document->layout =="scrolls")
                                             selected 
                                             @endif
@@ -82,7 +82,7 @@
                                     if ($document->group) {
                                         if ($group->id == $document->group->group_id) {
                                             $documentSelected = true;
-                                           $userInGroup = true;
+                                            $userInGroup = true;
                                             $documentInGroup = true;
                                         }
                                     }

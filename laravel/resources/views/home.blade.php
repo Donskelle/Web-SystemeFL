@@ -8,5 +8,4 @@
 
 Wilkommen auf DokuMummy Laravel
 
-{{{$p}}}
 @endsection

@@ -21,11 +21,8 @@ class DatabaseSeeder extends Seeder {
         $this->command->info('documents Tabelle Gefüllt mit 4 Dokumenten');
         $this->call('DocumentInGroupTableSeeder');
         $this->command->info('documents InGroup  Tabelle Gefüllt mit 3 verbindungen');
-         $this->call('UserInGroupTableSeeder');
+        $this->call('UserInGroupTableSeeder');
         $this->command->info('useringroup  Tabelle Gefüllt mit 3 verbindungen');
-        
-        
-        
     }
 
 }

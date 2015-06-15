@@ -27,7 +27,7 @@ class SettingsController extends Controller {
     }
 
     /**
-     * Show the application dashboard to the user.
+     * Gibt die User Einstellungs Seite zurück
      *
      * @return Response
      */
@@ -35,6 +35,10 @@ class SettingsController extends Controller {
         return $this->showProfil("");
     }
 
+    /**
+     * Gibt die Einstellungs Seite für alle bereiche für Admins zurück
+     * @return type
+     */
     public function showAdminSettings() {
         $allUsers = user::all();
         $allGroups = group::all();
@@ -48,6 +52,13 @@ class SettingsController extends Controller {
         return $view;
     }
 
+    /**
+     * Gibt die entsprechende Dokumenten Einstellungs Seite zurück
+     * Das anzuzeigende Dokument wird mittels der ID unterschieden die im Header stehet
+     * 
+     * @param type $document_id
+     * @return type
+     */
     public function showDocument($document_id) {
         $document = document::where('id', '=', $document_id)->first();
         $allGroups = group::all();
@@ -59,16 +70,25 @@ class SettingsController extends Controller {
         return $view;
     }
 
+    /**
+     * Speicheret die Äanderungen an dem enstprechendem Dokument
+     * Dazu gehören
+     * Name 
+     * path
+     * Layout
+     * Gruppe 
+     * 
+     * @param type $document_id
+     * @return type
+     */
     public function saveDocument($document_id) {
-        $data = Input::all();     
+        $data = Input::all();
         //Dokument Einstellungen
-        $document = document::where('id', '=', $document_id)->first();
-        
-       
-        $this->changeValueInConf($document->name,$data['name'],$document->path);
+        $document = document::where('id', '=', $document_id)->first();        
+        $this->changeValueInConf($document->name, $data['name'], $document->path);
         $document->name = $data['name'];
         $document->path = $data['path'];
-        $this->changeValueInConf($document->layout,$data['layout'],$document->path);
+        $this->changeValueInConf($document->layout, $data['layout'], $document->path);
         $document->layout = $data['layout'];
         $document->save();
 
@@ -76,14 +96,30 @@ class SettingsController extends Controller {
         document_in_group::where('document_id', '=', $document_id)->delete();
         $document_in_group = new document_in_group;
         $document_in_group->document_id = $document_id;
-        $document_in_group->group_id = $data['group_id'];        
+        $document_in_group->group_id = $data['group_id'];
         $document_in_group->save();
-        return redirect($data['lastURL']);        
+        return redirect($data['lastURL']);
     }
+
+    /**
+     * Austauschen der Variablen der Config mittels fester Definitionen
+     * 
+     * @param type $olt
+     * @param type $new
+     * @param type $path
+     */
     private function changeValueInConf($olt, $new, $path) {
         $output = shell_exec("sudo perl -pi -e 's/$olt/$new/g' $path/source/conf.py");
         //dd($output);
     }
+
+    /**
+     * Gibt die entsprechende Gruppen Einstellung zurück
+     * Welche Dokumente in der Gruppe sind 
+     * und welche Nutzer Rechte haben, in der Gruppe zu berabeiten.
+     * @param type $group_id
+     * @return type
+     */
     public function showGroup($group_id) {
         $group = group::find($group_id);
         $allDocuments = document::all();
@@ -97,6 +133,16 @@ class SettingsController extends Controller {
         return $view;
     }
 
+    /**
+     * Speichert die änderungen in der Gruppe
+     * Beim Speicheren wird die zugehörigkeit der Dokumnte und Nutzer etsprechend angepasst.
+     * 
+     * Ein Nutzer darf in einer oder mehrerin Gruppen sein 
+     * ein Dokument kann nur in einer Gruppe sein.
+     * 
+     * @param type $group_id
+     * @return type
+     */
     public function saveGroup($group_id) {
         $data = Input::all();
         //Gruppen Einstellungen
@@ -141,6 +187,11 @@ class SettingsController extends Controller {
         return $this->showAdminSettings();
     }
 
+    /**
+     * Anlegen einer neuen Gruppe 
+     * die anschliessen weiter bearbeitet werden kann.
+     * @return type
+     */
     public function addNewGroup() {
         $data = Input::all();
         $validator = Validator::make($data, ['name' => 'required|min:4|max:255|unique:groups',]);
@@ -156,6 +207,12 @@ class SettingsController extends Controller {
         }
     }
 
+    /**
+     * Gibt ein entsprechendes Profil aus dem Admin Einstellungs bereich zurück
+     * welches der Admin bearbeiten kann.
+     * @param type $username
+     * @return type
+     */
     public function showProfil($username) {
         $user = \DB::table('users')->where('username', $username)->first();
         $view = view('settings.profileSettings');
@@ -165,8 +222,14 @@ class SettingsController extends Controller {
         return $view;
     }
 
+    /**
+     * Speichert die Änderungen am enstprechendem User Profil und kert zur Admin übersicht zurück
+     * 
+     * @param type $username
+     * @return type
+     */
     public function saveProfil($username) {
-        $data = Input::all();       
+        $data = Input::all();
         if ($data["password"] === "" && $data["password_confirmation"] === "") {
             $validator = Validator::make($data, [
                         'name' => 'required|max:255',
@@ -188,15 +251,15 @@ class SettingsController extends Controller {
 //            return redirect('auth/profileSettings')->withInput($data->only('name','imagePath','extra','permission','active'))
 //                        ->withErrors([
 //                            'imagePath' => 'Es ist kein Bild vorhanden.',]);
-        
-        
-        $user = user::where('username', '=', $username)->first();         
+
+
+        $user = user::where('username', '=', $username)->first();
         $user->name = $data['name'];
-        $user->extra = $data['extra'];    
+        $user->extra = $data['extra'];
         $user->browser_layout = $data['browser_layout'];
         $user->editor_layout = $data['editor_layout'];
         if (array_key_exists("permission", $data)) {
-             $user->permission = $data["permission"];
+            $user->permission = $data["permission"];
         }
         if (array_key_exists("active", $data)) {
 
@@ -205,8 +268,8 @@ class SettingsController extends Controller {
         if ($data["password"] !== "") {
             $user->password = bcrypt($data["password"]);
         }
-          $user->save();
-       
+        $user->save();
+
         if (\Auth::user()->username === $username) {
             return redirect('/');
         } else {
@@ -214,6 +277,13 @@ class SettingsController extends Controller {
         }
     }
 
+    /**
+     * Läd ein ausgewähltes Bild auf den Server
+     * Das Bild wird als Profile Bild genutzt des entsprechenden Users
+     * 
+     * @param type $username
+     * @return type
+     */
     public function fileupload($username) {
         Input::file('file')->move('/var/www/laravel/public/img/', $username . '.png');
         $update = [];

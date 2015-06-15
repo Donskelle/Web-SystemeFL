@@ -25,7 +25,7 @@ class user extends Model implements AuthenticatableContract, CanResetPasswordCon
      *
      * @var array
      */
-    protected $fillable = ['username', 'name', 'password', 'imagePath', 'extra','browser_layout', 'editor_layout', 'permission', 'active'];
+    protected $fillable = ['username', 'name', 'password', 'imagePath', 'extra', 'browser_layout', 'editor_layout', 'permission', 'active'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -41,7 +41,7 @@ class user extends Model implements AuthenticatableContract, CanResetPasswordCon
     public function groups() {
         return $this->hasMany('App\Models\user_in_group');
     }
-    
+
     /**
      * One To Many
      * @return type
@@ -49,7 +49,7 @@ class user extends Model implements AuthenticatableContract, CanResetPasswordCon
     public function documents() {
         return $this->hasMany('App\Models\document');
     }
-    
+
     /**
      * One To Many
      * @return type
@@ -57,9 +57,9 @@ class user extends Model implements AuthenticatableContract, CanResetPasswordCon
     public function activeDocuments() {
         return $this->hasMany('App\Models\active_document_part');
     }
-    
-      public function groupWhere($group_id) {
-          return   $this->hasMany('App\Models\user_in_group')->where('group_id', '=', '1');
-      }
+
+    public function groupWhere($group_id) {
+        return $this->hasMany('App\Models\user_in_group')->where('group_id', '=', '1');
+    }
 
 }

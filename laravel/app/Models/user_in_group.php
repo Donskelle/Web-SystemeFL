@@ -34,7 +34,7 @@ class user_in_group extends Model {
     public function user() {
         return $this->belongsTo('App\Models\user');
     }
-    
+
     /**
      * Many To One 
      * @return type

@@ -13,11 +13,11 @@ class DocumentInGroupTableSeeder extends Seeder {
                 'group_id' => "1"
             ],
             [
-               'document_id' => "2",
+                'document_id' => "2",
                 'group_id' => "1"
             ],
             [
-              'document_id' => "2",
+                'document_id' => "2",
                 'group_id' => "3"
             ]
         ];
