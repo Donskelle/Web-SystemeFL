@@ -55,7 +55,7 @@ return [
 		'mysql' => [
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'DokuMummy',
+			'database'  => 'DokuMummy_Laravel',
 			'username'  => 'pharao',
 			'password'  => 'admin',
 			'charset'   => 'utf8',

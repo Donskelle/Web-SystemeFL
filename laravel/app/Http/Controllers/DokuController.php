@@ -128,6 +128,7 @@ class DokuController extends Controller {
         $this->changeValueInConf("#language = None", "language =\"de\"", $document->path);
         $this->makeHTML($document->path);
 
+        $this->addNewNews($document->id, 0, 1, "Neues Dokument angelegt mit dem namen" . $document->name);
         return redirect('/document/private/' . $document->id);
     }
     /**
@@ -148,6 +149,7 @@ class DokuController extends Controller {
             $this->changeRechte();
             $this->makeHTML($data['pathDocu']);
         }
+        $this->addNewNews($data['id'], 0, 1, "Neues Abschnitt für " . $data['pathDocu'] );
         return redirect($data['lastURL']);
     }
 
@@ -196,6 +198,7 @@ class DokuController extends Controller {
         $output = shell_exec("sudo /var/www/sphinx/./myMake.sh " . $path . " html");
         //$output = shell_exec("sudo sphinx-build -b html $path/source/ $path/build/html");
         //dd($output);
+        $this->addNewNews(0, 0, 3, "Erstellt HTML");
     }
     
     /**
@@ -204,7 +207,8 @@ class DokuController extends Controller {
      */
     private function makePDF($path) {
         $output = shell_exec("sudo /var/www/sphinx/./myMake.sh " . $path . " latexpdf");
-        //dd($output);      
+        //dd($output);   
+        $this->addNewNews(0, 0, 3, "Erstellt PDF");
     }
 
     /**
@@ -350,6 +354,7 @@ class DokuController extends Controller {
         fwrite($rstFile, $data['makedown']);
         fclose($rstFile);
         $this->makeHTML($document->path);
+        $this->addNewNews($document->id, 0, 3, "Speichert Änderungen an Dokument");
         if ($data['name'] == "index") {
             return \Response::json([ "overwrite" => TRUE]);
         } else {

@@ -18,7 +18,7 @@ class active_document_part extends Model {
      *
      * @var array
      */
-    protected $fillable = ['document_id', 'user_id', 'part'];
+    protected $fillable = ['document_id', 'user_id', 'part_name'];
 
     /**
      * The attributes excluded from the model's JSON form.

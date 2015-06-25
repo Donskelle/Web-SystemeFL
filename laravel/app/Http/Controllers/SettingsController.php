@@ -98,6 +98,7 @@ class SettingsController extends Controller {
         $document_in_group->document_id = $document_id;
         $document_in_group->group_id = $data['group_id'];
         $document_in_group->save();
+        $this->addNewNews(0, 0, 2, "Benutzer Einstellungen angepasst bei " .$data['name']);
         return redirect($data['lastURL']);
     }
 
@@ -184,6 +185,7 @@ class SettingsController extends Controller {
                 $document_in_group->save();
             }
         }
+        $this->addNewNews(0, $group_id, 2, "Änderung an der Gruppe Eisntellung");
         return $this->showAdminSettings();
     }
 
@@ -203,6 +205,7 @@ class SettingsController extends Controller {
                         'description' => "Gruppe hat noch keine Beschreibung",
                         'active' => 1
             ]);
+            $this->addNewNews(0, $newGroup->id, 1, "Neue Gruppe Hinzugefügt");
             return $this->showGroup($newGroup->id);
         }
     }
@@ -269,7 +272,7 @@ class SettingsController extends Controller {
             $user->password = bcrypt($data["password"]);
         }
         $user->save();
-
+        $this->addNewNews(0, 0, 2, "Benutzer Einstellungen angepasst bei " .$data['name']);
         if (\Auth::user()->username === $username) {
             return redirect('/');
         } else {

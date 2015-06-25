@@ -15,7 +15,7 @@ class CreateDocumentActiveTable extends Migration {
             $table->increments('id');
             $table->integer('document_id');
             $table->integer('user_id');
-            $table->integer('part');
+            $table->string('part_name');
             $table->timestamps();
         });
     }
