@@ -57,6 +57,9 @@
             </footer>
         </div>
     </body>
+    
+      <script src="{{ asset('js/socket.io.js') }}" type="text/javascript"></script>
+      <script src="{{ asset('js/nodeClient.js') }}" type="text/javascript"></script>
 
     <script type="text/javascript">
         var my_skins = ["skin-blue", "skin-black", "skin-red", "skin-yellow", "skin-purple", "skin-green"];
@@ -77,5 +80,66 @@
                 change_skin(tmp);
         }
         setup();
+        
+@if(Auth::check())       
+(function init() {
+    var news = io.connect('http://{{$_SERVER['SERVER_NAME']}}:8080');
+    var username = '{{\Auth::user()->name}}';
+
+    news.on('connect', function ()
+    {
+        news.emit(
+                'init',
+                {
+                    rooms: ["lufthansa", "airbus"],
+                    name: username
+                }
+        );
+
+        /**
+         * Kompletter Newsfeed wird erstetzt
+         * Wird ausgelöst, wenn man Räumen begetreten ist.
+         * NodeJs ruft DatenBank Newsfeed ab.
+         */
+        news.on(
+                'newsFeed',
+                function (msg)
+                {
+                    UpdateFeed.buildNews(msg.rows);
+                }
+        );
+
+
+        /**
+         * Server schickt Update an Client
+         */
+        news.on(
+                'update',
+                function (data) {
+                    UpdateFeed.addNews(data);
+                }
+        );
+
+    });
+
+    $("#update").on(
+            "click",
+            function (e)
+            {
+                // Client löst Update aus
+                news.emit(
+                        'update',
+                        {
+                            room: e.target.attributes["data-room"].value,
+                            updateNews: $("#" + e.target.attributes["data-targetInput"].value)[0].value
+                        }
+                );
+            }
+    );
+})();
+@endif
+
     </script>
+    
+    
 </html>
