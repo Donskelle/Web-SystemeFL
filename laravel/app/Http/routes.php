@@ -27,6 +27,7 @@ Route::post('/settings/group/{groupId}/save', 'SettingsController@saveGroup');
 
 Route::get('/settings/document/{documentId}', 'SettingsController@showDocument');
 Route::post('/settings/document/{documentId}/save', 'SettingsController@saveDocument');
+Route::any('/settings/document/{documentId}/fileupload', 'SettingsController@fileuploadDocument');
 
 Route::get('/settings/admin', 'SettingsController@showAdminSettings');
 Route::post('/settings/admin/addgroup', 'SettingsController@addNewGroup');

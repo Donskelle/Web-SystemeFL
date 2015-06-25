@@ -109,7 +109,38 @@
                             </div>
                         </div>
                     </form>
-                </div>   
+                </div> 
+                <div class="panel-heading">Dokumenten Bild Hochladen</div>
+                <div class="panel-body">
+                    <form class="form-horizontal" role="form" method="POST" enctype="multipart/form-data" action="{{'/settings/document/'.$document->id .'/fileupload' }}">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}"> 
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Aktuelle Bilder </br> Nur ein Bild zurzeit hochladen. </br>Zum einfügen </br>.. image:: _templates/X.png</label>
+                            <div class="col-md-6">  
+                                <ul>
+                                    @foreach ($images as $image)
+                                    <li>_templates/{{$image}}</li>
+                                    @endforeach
+                                    @if(count($images) ==0)
+                                    <li>keine Bilder vorhanden</li>
+                                    @endif
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="form-group">                          
+                            <div class="col-md-6 col-md-offset-4">
+                                <input  class="btn btn-primary" type="file" id="file" name="file" accept="image/*">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-4">
+                                <button type="submit" class="btn btn-primary">
+                                    Bild hochladen 
+                                </button>
+                            </div>
+                        </div>
+                    </form> 
+                </div>
             </div>
         </div>
     </div>

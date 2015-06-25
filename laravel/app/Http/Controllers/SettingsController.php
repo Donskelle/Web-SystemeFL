@@ -67,6 +67,7 @@ class SettingsController extends Controller {
         $view->publicGroups = $this->getAuthGroups();
         $view->document = $document;
         $view->allGroups = $allGroups;
+        $view->images = $this->countImage($document->path);
         return $view;
     }
 
@@ -84,7 +85,7 @@ class SettingsController extends Controller {
     public function saveDocument($document_id) {
         $data = Input::all();
         //Dokument Einstellungen
-        $document = document::where('id', '=', $document_id)->first();        
+        $document = document::where('id', '=', $document_id)->first();
         $this->changeValueInConf($document->name, $data['name'], $document->path);
         $document->name = $data['name'];
         $document->path = $data['path'];
@@ -98,7 +99,7 @@ class SettingsController extends Controller {
         $document_in_group->document_id = $document_id;
         $document_in_group->group_id = $data['group_id'];
         $document_in_group->save();
-        $this->addNewNews(0, 0, 2, "Benutzer Einstellungen angepasst bei " .$data['name']);
+        $this->addNewNews(0, 0, 2, "Benutzer Einstellungen angepasst bei " . $data['name']);
         return redirect($data['lastURL']);
     }
 
@@ -272,7 +273,7 @@ class SettingsController extends Controller {
             $user->password = bcrypt($data["password"]);
         }
         $user->save();
-        $this->addNewNews(0, 0, 2, "Benutzer Einstellungen angepasst bei " .$data['name']);
+        $this->addNewNews(0, 0, 2, "Benutzer Einstellungen angepasst bei " . $data['name']);
         if (\Auth::user()->username === $username) {
             return redirect('/');
         } else {
@@ -292,7 +293,49 @@ class SettingsController extends Controller {
         $update = [];
         $update["imagePath"] = $username . '.png';
         \DB::table('users')->where('username', $username)->update($update);
+        $this->changeRechte();
         return redirect('settings/profile/' . $username);
+    }
+
+    /**
+     * Läd ein ausgewähltes Bild auf den Server
+     * Das Bild wird im Bilder ordner des Dokuments gespeichert
+     * 
+     * @param type $documentId
+     * @return type
+     */
+    public function fileuploadDocument($documentId) {
+        $document = document::where('id', '=', $documentId)->first();
+        $images = $this->countImage($document->path);
+        Input::file('file')->move($document->path . '/source/_templates/', (count($images)+1) . '.png');
+        $this->changeRechte();
+        return $this->showDocument($documentId);
+    }
+
+    /**
+     * Zählt alle Bilder zusammenn
+     * @param type $docuPath
+     * @return array
+     */
+    private function countImage($docuPath) {
+        $images = [];
+        $weeds = array('.', '..');
+        $directori = array_diff(scandir($docuPath . "/source/_templates/"), $weeds);
+        foreach ($directori as $value) {
+            if (pathinfo($value, PATHINFO_EXTENSION) == "png") {
+                array_push($images, $value);
+            }
+        }
+        return $images;
+    }
+
+    /**
+     * Rechte auf dem Server neu setzten für eine Fest gesetzte Gruppe www 
+     * und den beinhalteten Nutzeren pharao und www-data     
+     */
+    private function changeRechte() {
+        $output = shell_exec("sudo /var/www/sphinx/./rechte.sh");
+        //dd($output);
     }
 
 }
