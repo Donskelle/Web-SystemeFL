@@ -40,7 +40,7 @@ abstract class Controller extends BaseController {
     }
 
     public function getAllNews() {
-        return \App\Models\news::all();
+        return \App\Models\news::orderBy('id', 'DESC')->take(30)->get();
     }
 
     

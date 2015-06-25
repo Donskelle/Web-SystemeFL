@@ -18,7 +18,7 @@ class news extends Model {
      *
      * @var array
      */
-    protected $fillable = ['user_id', 'document_id', 'group_id', 'mode', 'description'];
+    protected $fillable = ['user_id', 'document_id', 'group_id', 'mode', 'description','created_at'];
 
     /**
      * The attributes excluded from the model's JSON form.
