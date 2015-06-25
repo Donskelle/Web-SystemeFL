@@ -138,23 +138,27 @@
                         </div> 
                         <div class="form-group">
                             <div class="col-md-3">
-                                <a href='javascript:void(0);' onclick='document.getElementById("editor_layout").value = "skin-black";'
-                                   <p class='text-center'>Skin Black</p>
+                                <a href='javascript:void(0);' onclick='document.getElementById("editor_layout").value = "chrome";'>
+                                   <p class='text-center'>Chrome weiß</p>
+                                   <img src="{{ asset('/img/chrome.png')}}" alt="Chrome" height="125" width="150">
                                 </a>
                             </div>
                             <div class="col-md-3">
-                                <a href='javascript:void(0);' onclick='document.getElementById("editor_layout").value = "skin-black";'
-                                   <p class='text-center'>Skin Black</p>
+                                <a href='javascript:void(0);' onclick='document.getElementById("editor_layout").value = "github";'>
+                                   <p class='text-center'>GitHub weiß</p>
+                                    <img src="{{ asset('/img/github.png')}}" alt="GitHub" height="125" width="150">
                                 </a>
                             </div>
                             <div class="col-md-3">
-                                <a href='javascript:void(0);' onclick='document.getElementById("editor_layout").value = "skin-black";'
-                                   <p class='text-center'>Skin Black</p>
+                                <a href='javascript:void(0);' onclick='document.getElementById("editor_layout").value = "terminal";'>
+                                   <p class='text-center'>Terminal schwarz</p>
+                                    <img src="{{ asset('/img/terminal.png')}}" alt="Terminal" height="125" width="150">
                                 </a>
                             </div>
                             <div class="col-md-3">
-                                <a href='javascript:void(0);' onclick='document.getElementById("editor_layout").value = "skin-black";'
-                                   <p class='text-center'>Skin Black</p>
+                                <a href='javascript:void(0);' onclick='document.getElementById("editor_layout").value = "twilight";'>
+                                   <p class='text-center'>Twilight schwarz</p>
+                                    <img src="{{ asset('/img/twilight.png')}}" alt="Twilight" height="125" width="150">
                                 </a>
                             </div>
                         </div>

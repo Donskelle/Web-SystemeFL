@@ -34,6 +34,7 @@ class Registrar implements RegistrarContract {
                     'username' => $data['username'],
                     'name' => $data['name'],
                     'extra' => $data['extra'],
+                    'editor_layout'=> 'chrome',
                     'password' => bcrypt($data['password']),
                     'active' => 1,
                     'permission' => 2, // 0 = Admin , 1 = UserAdmin, 2 = User

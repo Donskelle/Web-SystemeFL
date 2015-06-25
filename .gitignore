@@ -14,3 +14,4 @@ sftp-config.json
 # !path/to/log/mylog.log     das ! negiert die regel
 #wenn alle log files in einem bestimmten ordner commitet werden sollen
 # !!path/to/log/*.log 
+/nbproject/private/

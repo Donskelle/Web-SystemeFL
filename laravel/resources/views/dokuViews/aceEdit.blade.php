@@ -28,7 +28,7 @@
                     ace.edit("{{$Part['id']}}").setShowFoldWidgets(true);
                     ace.edit("{{$Part['id']}}").setReadOnly(false);
                     ace.edit("{{$Part['id']}}").getSession().setMode("ace/mode/markdown");
-                    ace.edit("{{$Part['id']}}").setTheme("ace/theme/chrome");</script>
+                    ace.edit("{{$Part['id']}}").setTheme("ace/theme/{{\Auth::user()->editor_layout}}");</script>
     </div>				
 </div>
 @endforeach

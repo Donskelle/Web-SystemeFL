@@ -13,6 +13,7 @@ class UsersTableSeeder extends Seeder {
                 'name' => "System Admin",
                 'extra' => "Admin",
                 'password' => bcrypt("admin"),
+                'editor_layout' => 'chrome',
                 'active' => 1,
                 'permission' => 0, // 0 = Admin , 1 = UserAdmin, 2 = User
                 'imagePath' => "default0.png"
@@ -22,6 +23,7 @@ class UsersTableSeeder extends Seeder {
                 'name' => "User Admin",
                 'extra' => "UserAdmin",
                 'password' => bcrypt("admin"),
+                'editor_layout' => 'chrome',
                 'active' => 1,
                 'permission' => 1, // 0 = Admin , 1 = UserAdmin, 2 = User
                 'imagePath' => "default1.png"
@@ -31,6 +33,7 @@ class UsersTableSeeder extends Seeder {
                 'name' => "User",
                 'extra' => "User",
                 'password' => bcrypt("user"),
+                'editor_layout' => 'chrome',
                 'active' => 1,
                 'permission' => 2, // 0 = Admin , 1 = UserAdmin, 2 = User
                 'imagePath' => "default2.png"
