@@ -2,13 +2,17 @@
 # This file is distributed under the same license as the Twenty Fifteen package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2014-12-14 16:35:04+0000\n"
+"PO-Revision-Date: 2015-03-26 18:07:09+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: GlotPress/1.0-alpha-1000\n"
 "Project-Id-Version: Twenty Fifteen\n"
+
+#. Theme URI of the plugin/theme
+msgid "https://wordpress.org/themes/twentyfifteen/"
+msgstr "https://wordpress.org/themes/twentyfifteen/"
 
 #: single.php:37
 msgid "Previous post:"
@@ -18,7 +22,7 @@ msgstr "Vorheriger Beitrag:"
 msgid "Next post:"
 msgstr "Nächster Beitrag:"
 
-#: inc/customizer.php:52 inc/customizer.php:68 inc/customizer.php:73
+#: inc/customizer.php:47 inc/customizer.php:63 inc/customizer.php:68
 msgid "Applied to the header on small screens and the sidebar on wide screens."
 msgstr "Wird bei kleinen Bildschirmen auf den Header angewendet und bei großen Bildschirmen auf die Sidebar."
 
@@ -63,10 +67,6 @@ msgstr "% Kommentare"
 msgid "Search Results for: %s"
 msgstr "Suchergebnisse für: %s"
 
-#. Theme URI of the plugin/theme
-msgid "https://wordpress.org/themes/twentyfifteen"
-msgstr "https://wordpress.org/themes/twentyfifteen"
-
 #. Theme Name of the plugin/theme
 msgid "Twenty Fifteen"
 msgstr "Twenty Fifteen"
@@ -91,27 +91,27 @@ msgctxt "Used before post author name."
 msgid "Author"
 msgstr "Autor"
 
-#: inc/customizer.php:152
+#: inc/customizer.php:147
 msgid "Blue"
 msgstr "Blau"
 
-#: inc/customizer.php:130
+#: inc/customizer.php:125
 msgid "Pink"
 msgstr "Pink"
 
-#: inc/customizer.php:97
+#: inc/customizer.php:92
 msgid "Default"
 msgstr "Standard"
 
-#: inc/customizer.php:119
+#: inc/customizer.php:114
 msgid "Yellow"
 msgstr "Gelb"
 
-#: inc/customizer.php:108
+#: inc/customizer.php:103
 msgid "Dark"
 msgstr "Dunkel"
 
-#: inc/customizer.php:141
+#: inc/customizer.php:136
 msgid "Purple"
 msgstr "Violett"
 
@@ -128,7 +128,7 @@ msgstr "Ältere Kommentare"
 msgid "Newer Comments"
 msgstr "Neuere Kommentare"
 
-#: header.php:44
+#: header.php:43
 msgid "Menu and widgets"
 msgstr "Menü und Widgets"
 
@@ -146,15 +146,15 @@ msgstr "<span class=\"meta-nav\">Veröffentlicht in</span><span class=\"post-tit
 msgid "Twenty Fifteen requires at least WordPress version 4.1. You are running version %s. Please upgrade and try again."
 msgstr "Twenty Fifteen erfordert mindestens WordPress in der Version 4.1. Du benutzt Version %s. Bitte aktualisiere dein WordPress und versuche es noch einmal."
 
-#: inc/customizer.php:51
+#: inc/customizer.php:46
 msgid "Header and Sidebar Text Color"
 msgstr "Header- und Seitenleisten-Textfarbe"
 
-#: inc/customizer.php:36
+#: inc/customizer.php:31
 msgid "Base Color Scheme"
 msgstr "Basis-Farbschema"
 
-#: inc/customizer.php:67
+#: inc/customizer.php:62
 msgid "Header and Sidebar Background Color"
 msgstr "Header- und Seitenleisten-Hintergrundfarbe"
 
@@ -191,7 +191,7 @@ msgstr "Stolz präsentiert von %s"
 msgid "Primary Menu"
 msgstr "Primäres Menü"
 
-#: header.php:27
+#: header.php:26
 msgid "Skip to content"
 msgstr "Zum Inhalt springen"
 
@@ -211,34 +211,34 @@ msgstr "Entschuldigung, aber zu deinen Suchbegriffen wurde nichts passendes gefu
 msgid "It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help."
 msgstr "Es sieht so aus, als ob wir nicht das finden konnten, wonach du gesucht hast. Möglicherweise hilft eine Suche."
 
-#. translators: To add an additional character subset specific to your
+#. Translators: To add an additional character subset specific to your
 #. language, translate this to 'greek', 'cyrillic', 'devanagari' or
 #. 'vietnamese'. Do not translate into your own language.
-#: functions.php:173
+#: functions.php:185
 msgctxt "Add new subset (greek, cyrillic, devanagari, vietnamese)"
 msgid "no-subset"
 msgstr "no-subset"
 
-#. translators: If there are characters in your language that are not supported
+#. Translators: If there are characters in your language that are not supported
 #. by Inconsolata, translate this to 'off'. Do not translate into your own
 #. language.
-#: functions.php:168
+#: functions.php:177
 msgctxt "Inconsolata font: on or off"
 msgid "on"
 msgstr "on"
 
-#. translators: If there are characters in your language that are not supported
+#. Translators: If there are characters in your language that are not supported
 #. by Noto Sans, translate this to 'off'. Do not translate into your own
 #. language.
-#: functions.php:158
+#: functions.php:161
 msgctxt "Noto Sans font: on or off"
 msgid "on"
 msgstr "on"
 
-#. translators: If there are characters in your language that are not supported
+#. Translators: If there are characters in your language that are not supported
 #. by Noto Serif, translate this to 'off'. Do not translate into your own
 #. language.
-#: functions.php:163
+#: functions.php:169
 msgctxt "Noto Serif font: on or off"
 msgid "on"
 msgstr "on"
@@ -247,7 +247,7 @@ msgstr "on"
 msgid "Widget Area"
 msgstr "Widgetbereich"
 
-#. #-#-#-#-#  twentyfifteen.pot (Twenty Fifteen 1.0)  #-#-#-#-#
+#. #-#-#-#-#  twentyfifteen.pot (Twenty Fifteen 1.2)  #-#-#-#-#
 #. Author URI of the plugin/theme
 #: footer.php:25
 msgid "https://wordpress.org/"
@@ -273,11 +273,11 @@ msgstr "Social-Links-Menü"
 msgid "Continue reading %s"
 msgstr "%s weiterlesen"
 
-#: functions.php:231
+#: functions.php:255
 msgid "expand child menu"
 msgstr "Untermenü anzeigen"
 
-#: functions.php:232
+#: functions.php:256
 msgid "collapse child menu"
 msgstr "Untermenü verbergen"
 

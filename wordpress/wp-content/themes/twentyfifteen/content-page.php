@@ -7,9 +7,8 @@
  * @since Twenty Fifteen 1.0
  */
 ?>
-<?php get_sidebar('main'); ?>
+
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-	
 	<?php
 		// Post thumbnail.
 		twentyfifteen_post_thumbnail();

@@ -45,8 +45,6 @@
 		</header><!-- .site-header -->
 
 		<?php get_sidebar(); ?>
-		<?php get_sidebar('main'); ?>
-
 	</div><!-- .sidebar -->
 
 	<div id="content" class="site-content">

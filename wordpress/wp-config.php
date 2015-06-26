@@ -1,44 +1,48 @@
 <?php
 /**
- * The base configurations of the WordPress.
+ * In dieser Datei werden die Grundeinstellungen für WordPress vorgenommen.
  *
- * This file has the following configurations: MySQL settings, Table Prefix,
- * Secret Keys, and ABSPATH. You can find more information by visiting
- * {@link https://codex.wordpress.org/Editing_wp-config.php Editing wp-config.php}
- * Codex page. You can get the MySQL settings from your web host.
+ * Zu diesen Einstellungen gehören: MySQL-Zugangsdaten, Tabellenpräfix,
+ * Secret-Keys, Sprache und ABSPATH. Mehr Informationen zur wp-config.php gibt es
+ * auf der {@link https://codex.wordpress.org/Editing_wp-config.php wp-config.php editieren}
+ * Seite im Codex. Die Informationen für die MySQL-Datenbank bekommst du von deinem Webhoster.
  *
- * This file is used by the wp-config.php creation script during the
- * installation. You don't have to use the web site, you can just copy this file
- * to "wp-config.php" and fill in the values.
+ * Diese Datei wird von der wp-config.php-Erzeugungsroutine verwendet. Sie wird ausgeführt,
+ * wenn noch keine wp-config.php (aber eine wp-config-sample.php) vorhanden ist,
+ * und die Installationsroutine (/wp-admin/install.php) aufgerufen wird.
+ * Man kann aber auch diese Datei nach "wp-config.php" kopieren, alle fehlenden Werte
+ * ergänzen und die Installation anschließend starten.
  *
  * @package WordPress
  */
-define('WP_DEBUG', true);
-// ** MySQL settings - You can get this info from your web host ** //
-/** The name of the database for WordPress */
-define('DB_NAME', 'wordpress');
 
-/** MySQL database username */
+// ** MySQL Einstellungen - diese Angaben bekommst du von deinem Webhoster. ** //
+/** Ersetze database_name_here mit dem Namen der Datenbank, die du verwenden möchtest. */
+define('DB_NAME', 'DokuMummy_WordPress');
+
+/** Ersetze username_here mit deinem MySQL-Datenbank-Benutzernamen */
 define('DB_USER', 'pharao');
 
-/** MySQL database password */
+/** Ersetze password_here mit deinem MySQL-Passwort */
 define('DB_PASSWORD', 'admin');
 
-/** MySQL hostname */
+/** Ersetze localhost mit der MySQL-Serveradresse */
 define('DB_HOST', 'localhost');
 
-/** Database Charset to use in creating database tables. */
+/** Der Datenbankzeichensatz der beim Erstellen der Datenbanktabellen verwendet werden soll */
 define('DB_CHARSET', 'utf8');
 
-/** The Database Collate type. Don't change this if in doubt. */
+/** Der collate type sollte nicht geändert werden */
 define('DB_COLLATE', '');
 
 /**#@+
- * Authentication Unique Keys and Salts.
+ * Sicherheitsschlüssel
  *
- * Change these to different unique phrases!
- * You can generate these using the {@link https://api.wordpress.org/secret-key/1.1/salt/ WordPress.org secret-key service}
- * You can change these at any point in time to invalidate all existing cookies. This will force all users to have to log in again.
+ * Ändere jeden KEY in eine beliebige, möglichst einzigartige Phrase.
+ * Auf der Seite {@link https://api.wordpress.org/secret-key/1.1/salt/ WordPress.org secret-key service}
+ * kannst du dir alle KEYS generieren lassen.
+ * Bitte trage für jeden KEY eine eigene Phrase ein. Du kannst die Schlüssel jederzeit wieder ändern,
+ * alle angemeldeten Benutzer müssen sich danach erneut anmelden.
  *
  * @since 2.6.0
  */
@@ -54,10 +58,10 @@ define('NONCE_SALT',       'put your unique phrase here');
 /**#@-*/
 
 /**
- * WordPress Database Table prefix.
+ * WordPress Datenbanktabellen-Präfix
  *
- * You can have multiple installations in one database if you give each a unique
- * prefix. Only numbers, letters, and underscores please!
+ * Wenn du verschiedene Präfixe benutzt, kannst du innerhalb einer Datenbank
+ * verschiedene WordPress-Installationen betreiben. Nur Zahlen, Buchstaben und Unterstriche bitte!
  */
 $table_prefix  = 'wp_';
 
