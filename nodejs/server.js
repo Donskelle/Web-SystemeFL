@@ -38,7 +38,7 @@ function getNews (callback) {
 			return;
 		}
 
-		connection.query( 'SELECT * FROM  `wp_dokumummy_documents` LIMIT 0 , 3 ', function(err, rows) {
+		connection.query( 'SELECT * FROM  `wp_dokumummy_update_feed` ORDER BY created_at DESC LIMIT 0 , 3 ', function(err, rows) {
 			connection.release();
 			if (err) {
 				return;
