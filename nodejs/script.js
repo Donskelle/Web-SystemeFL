@@ -1,4 +1,4 @@
-function newsBilder() {
+function newsBuilder() {
 	var socket;
 
 
@@ -46,4 +46,4 @@ function newsBilder() {
 		newsContainer.innerHTML = newsContainer.innerHTML +  "<p>" + data + "</p>";
 	}
 }
-newsBilder();
+newsBuilder();
