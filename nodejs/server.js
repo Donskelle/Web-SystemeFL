@@ -2,7 +2,7 @@ var io = require('socket.io')(8080);
 var mysql = require('mysql');
 var pool = mysql.createPool({
   host     : 'localhost',
-  database : 'mysql',
+  database : 'wordpress',
   user     : 'pharao',
   password : 'admin'
 });
@@ -13,28 +13,9 @@ var chat = io
 		'connection',
 		function (socket) 
 		{
-			var username;
-
-			socket.on('update', function (data)
+			socket.on('giveNewsFeed', function (data)
 			{
-				io.sockets.in(data.room).emit("update", "Raum " + data.room + " :" + data.updateNews);
-			});
-
-			socket.on('init', function (data)
-			{
-				username = data.name;
-				
-				for (var i = 0; i < data.rooms.length; i++) {
-					socket.join(data.rooms[i]);
-					// An alle außer Socket Instanz
-					io.sockets.in(data.rooms[i]).emit("update", "Raum " + data.rooms[i] + ": Neuer User " + username);
-					// An alle Clients im Raum
-					//socket.broadcast.to(data.room[i]).emit('update', "Raum " + data.rooms[i] + ": Neuer User " + username)
-				};
-				console.log(socket.rooms);
-
-				getRoomNews(
-					data.rooms,
+				getNews(
 					function(databaseRows)
 					{
 						socket.emit(
@@ -50,14 +31,14 @@ var chat = io
 	);
 
 
-function getRoomNews (rooms, callback) {
+function getNews (callback) {
 	pool.getConnection(function(err, connection) {
 		if (err) {
 			connection.release();
 			return;
 		}
 
-		connection.query( 'SELECT * FROM  `help_category` ', function(err, rows) {
+		connection.query( 'SELECT * FROM  `wp_dokumummy_documents` LIMIT 0 , 3 ', function(err, rows) {
 			connection.release();
 			if (err) {
 				return;
