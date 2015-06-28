@@ -1,8 +1,8 @@
-var io = require('socket.io')(8080);
+var io = require('socket.io')(8081);
 var mysql = require('mysql');
 var pool = mysql.createPool({
     host: 'localhost',
-    database: 'DokuMummy_WordPress',
+    database: 'DokuMummy_Laravel',
     user: 'pharao',
     password: 'admin'
 });
@@ -38,7 +38,7 @@ function getNews(callback) {
             return;
         }
 
-        connection.query('SELECT * FROM  `wp_dokumummy_update_feed` ORDER BY created_at DESC LIMIT 0 , 3 ', function (err, rows) {
+        connection.query('SELECT description FROM  `news` ORDER BY created_at DESC LIMIT 0 , 3 ', function (err, rows) {
             connection.release();
             if (err) {
                 return;

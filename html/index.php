@@ -13,7 +13,7 @@
 		  Zur <a href="http://<?php echo $_SERVER['SERVER_NAME'];?>:8001">WordPress Live Ansicht</a> oder zum <a href="http://<?php echo $_SERVER['SERVER_NAME'];?>:8001/wp-admin/">WordPress Backend</a><br>
 		  Zur <a href="http://<?php echo $_SERVER['SERVER_NAME'];?>:8002">Test Seite</a><br>
 		  Zur <a href="http://<?php echo $_SERVER['SERVER_NAME'];?>:8003">Sphinx Dokumenten Übersicht</a><br>
-		  Zur <a href="http://<?php echo $_SERVER['SERVER_NAME'];?>:8003">NodeJs Test Seite</a><br>
+		  Zur <a href="http://<?php echo $_SERVER['SERVER_NAME'];?>:8004">NodeJs Test Seite</a><br>
 		  Zur <a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/phpmyadmin">PHP My Admin Seite</a><br>
 		</p>
 	</body>

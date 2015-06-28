@@ -24,23 +24,7 @@ $(function () {
         "width": "250px",
         "z-index": "99999",
         "box-shadow": "0 1px 3px rgba(0,0,0,0.1)"
-    }).addClass("no-print");
-    demo_settings.append(
-            "<h4 class='text-light-blue' style='margin: 0 0 5px 0; border-bottom: 1px solid #ddd; padding-bottom: 15px;'>Chat und News Feed</h4>"
-            //Fixed layout
-            + "<div class='form-group'>"
-            + "<div class='checkbox'>"
-            + "<label>"
-            + "<input type='checkbox' onchange='change_layout(\"fixed\");'/> "
-            + "Fixed layout"
-            + "</label>"
-            + "</div>"
-            + "</div>"
-    
-            //Sidebar Collapse
-            + "<div class='newsFeed'>"
-            + "</div>"
-            );
+    }).addClass("newsFeed");   
 
     demo.click(function () {
         if (!$(this).hasClass("open")) {
@@ -57,39 +41,3 @@ $(function () {
     $("body").append(demo);
     $("body").append(demo_settings);
 });
-
-
-
-
-/**
- * [UpdateFeed description]
- * Namesbereich für Methoden zur Darstellung
- */
-function UpdateFeed() {
-
-}
-(function () {
-    /**
-     * [buildNews description]
-     * @param  {[type]} data [description]
-     * @return {[type]}      [description]
-     */
-    this.buildNews = function (data) {
-        var newsContainer = document.querySelector(".newsFeed");
-        newsContainer.innerHTML = "";
-
-        for (var i = 0; i < data.length; i++) {
-            UpdateFeed.addNews(data[i].name);
-        }
-        ;
-    }
-
-    /**
-     * [addNews description]
-     * @param {[type]} data [description]
-     */
-    this.addNews = function (data) {
-        var newsContainer = document.querySelector(".newsFeed");
-        newsContainer.innerHTML = "<p>" + data + "</p>";
-    }    
-}).call(UpdateFeed);

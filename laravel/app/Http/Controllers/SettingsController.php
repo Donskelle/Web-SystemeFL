@@ -260,8 +260,12 @@ class SettingsController extends Controller {
         $user = user::where('username', '=', $username)->first();
         $user->name = $data['name'];
         $user->extra = $data['extra'];
-        $user->browser_layout = $data['browser_layout'];
-        $user->editor_layout = $data['editor_layout'];
+        if (array_key_exists("browser_layout", $data)) {
+            $user->browser_layout = $data['browser_layout'];
+        }
+        if (array_key_exists("editor_layout", $data)) {
+            $user->editor_layout = $data['editor_layout'];
+        }
         if (array_key_exists("permission", $data)) {
             $user->permission = $data["permission"];
         }
@@ -307,7 +311,7 @@ class SettingsController extends Controller {
     public function fileuploadDocument($documentId) {
         $document = document::where('id', '=', $documentId)->first();
         $images = $this->countImage($document->path);
-        Input::file('file')->move($document->path . '/source/_templates/', (count($images)+1) . '.png');
+        Input::file('file')->move($document->path . '/source/_templates/', (count($images) + 1) . '.png');
         $this->changeRechte();
         return $this->showDocument($documentId);
     }

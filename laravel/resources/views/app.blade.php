@@ -81,62 +81,56 @@
         }
         setup();
         
-@if(Auth::check())       
-(function init() {
-    var news = io.connect('http://{{$_SERVER['SERVER_NAME']}}:8080');
-    var username = '{{\Auth::user()->name}}';
-
-    news.on('connect', function ()
-    {
-        news.emit(
-                'init',
-                {
-                    rooms: ["lufthansa", "airbus"],
-                    name: username
-                }
-        );
-
-        /**
-         * Kompletter Newsfeed wird erstetzt
-         * Wird ausgelöst, wenn man Räumen begetreten ist.
-         * NodeJs ruft DatenBank Newsfeed ab.
-         */
-        news.on(
-                'newsFeed',
-                function (msg)
-                {
-                    UpdateFeed.buildNews(msg.rows);
-                }
-        );
+@if(Auth::check())  
+    function newsBuilder() {
+	var socket;
 
 
-        /**
-         * Server schickt Update an Client
-         */
-        news.on(
-                'update',
-                function (data) {
-                    UpdateFeed.addNews(data);
-                }
-        );
+	function init() {
+		socket = io.connect('http://{{$_SERVER['SERVER_NAME']}}:8081');
 
-    });
+		socket.on('connect', function () 
+		{
+			
+			getNewsfeed();
+			/**
+			 * Kompletter Newsfeed wird erstetzt
+			 * Wird ausgelöst, wenn man Räumen begetreten ist.
+			 * NodeJs ruft DatenBank Newsfeed ab.
+			 */
+			socket.on( 
+				'newsFeed',  
+				function (msg) {
+					console.log(msg.rows);
+					buildNews(msg.rows);
+				}
+			);
+		});
+	}
+	init();
 
-    $("#update").on(
-            "click",
-            function (e)
-            {
-                // Client löst Update aus
-                news.emit(
-                        'update',
-                        {
-                            room: e.target.attributes["data-room"].value,
-                            updateNews: $("#" + e.target.attributes["data-targetInput"].value)[0].value
-                        }
-                );
-            }
-    );
-})();
+	function getNewsfeed() {
+		socket.emit(
+			'giveNewsFeed'
+		);
+
+		var timer = window.setTimeout(getNewsfeed, 10000);
+	}
+
+	function buildNews(data) {
+		var newsContainer = document.querySelector(".newsFeed");
+		newsContainer.innerHTML = "";
+
+		for (var i = 0; i < data.length; i++) {
+			addNews(data[i].description);
+		};
+	}
+	function addNews(data) {
+		var newsContainer = document.querySelector(".newsFeed");
+		newsContainer.innerHTML = newsContainer.innerHTML +  "<p>" + data + "</p>";
+	}
+}
+newsBuilder();
 @endif
 
     </script>
