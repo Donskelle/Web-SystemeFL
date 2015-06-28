@@ -1,0 +1,9 @@
+.menuDokuMummy {
+
+}
+.menuDokuMummy li {
+	list-style: none;
+}
+.menuDokuMummy li.title {
+	font-weight: bold;
+}
